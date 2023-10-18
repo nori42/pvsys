@@ -1,0 +1,293 @@
+/* Add your CSS styles here */
+        /* Base styles for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container for the calendar and menu */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Calendar styles */
+        .calendar {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 0px;
+            overflow: hidden;
+        }
+        
+        /*.date-text-container{
+            color: red;
+        }
+        
+        /* Month header styles */
+        .month {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #808080;
+            color: white;
+            padding: 25px;
+            font-size: 24px;
+        }
+
+        /* Next month button styles */
+        .next {
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .next:hover {
+            color: #66B2FF;
+        }
+
+        /* Previous month button styles */
+        .prev {
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .prev:hover {
+            color: #66B2FF;
+        }
+
+        /* Table styles for displaying calendar days */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Table cell styles */
+        th,
+        td {
+            text-align: center;
+            padding: 18px;
+            font-size: 20px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        /* Header cell styles */
+        th {
+            background-color: #808080;
+            color: white;
+        }
+
+        /* Selected date cell styles */
+        .selected {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Past date cell styles */
+        .past-date {
+            background-color: #00F7FF;
+            color: #000000;
+            cursor: not-allowed;
+        }
+
+        /* Container for buttons */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Button styles */
+        .button-container button {
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        /* Disabled button styles for past dates */
+        .button-container button[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Hamburger menu icon styles */
+        .hamburger-menu {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-menu:hover {
+            transform: scale(1.1);
+        }
+
+        .hamburger-menu div {
+            width: 30px;
+            height: 4px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .hamburger-menu:hover div {
+            background-color: #0066CC;
+        }
+
+        /* Menu styles */
+        .menu {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3;
+            transition: transform 0.3s ease;
+        }
+
+        .menu:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Menu item styles */
+        .menu-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Booking Form styles */
+        .booking-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 30px; /* Increase the padding for more space inside the form */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 4;
+            max-width: 500px; /* Increase the maximum width to make the form wider */
+            height: 630px;
+        }
+        
+        .booking-form label {
+            display: block;
+            margin-top: 10px;
+        }
+    
+        /* Additional styles for the form container */
+        .booking-form {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        /* Heading styles for the booking form */
+        .booking-form h2 {
+            margin-top: 0;
+        }
+
+        /* Style for select box */
+        #session-type {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .select{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Common styles for input fields */
+        #name,
+        #email,
+        #address,
+        #phone-number {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Close button styles */
+        #close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        #close-button:hover {
+            color: #66B2FF;
+        }
+
+        /* Container for date text */
+        .date-text-container {
+            cursor: pointer;
+        }
+
+        /* Additional styles for the layout adjustments */
+        .location-inputs {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .location-inputs input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        #city {
+            width: 100%;
+        }
+
+        .holiday {
+            background: red;
+            color: white;
+        }
+
+        .legend-item {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            margin-right: 5px;
+            border: 1px;
+        }
+
+        .legend-text {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .today {
+            background:gray;
+            color: white;
+        }
