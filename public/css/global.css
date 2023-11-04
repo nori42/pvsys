@@ -1,0 +1,29 @@
+:root {
+    --form-color: #dbdbdb;
+    --primary-color: #FB7434;
+    --dark-color:#131316;
+    --text-white:#F4F8FC;
+}
+
+*, *::after , *::before {
+    box-sizing: border-box;
+}
+
+.text-primary-nb {
+    color: var(--primary-color);
+}
+
+.btn-primary-nb{
+    color: var(--text-white);
+    background-color: var(--primary-color);
+}
+
+.btn-primary-nb:hover{
+    color: white;
+    background-color:#c9531c;
+}
+
+.debug {
+    border:1px solid red;
+}
+

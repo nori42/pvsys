@@ -10,10 +10,12 @@ class UserController extends Controller
 {
     //
     public function create(){
-        return view('register');
+        return view('pages.client.register');
     }
 
     public function store(Request $request){
+        $inputs = $request->collect();
+
         if(User::where('email',$request->email)->count() == 1){
             return back()->with('emailExist',true);
         }
@@ -23,12 +25,13 @@ class UserController extends Controller
         $user->email = $request->email;
 
         $user->password = Hash::make($request->password);
-        $user->first_name = $request->firstname;
-        $user->last_name = $request->lastname;
-        $user->phone_no = $request->phoneno;
+        $user->first_name = $inputs['firstname'];
+        $user->last_name = $inputs['lastname'];;
+        $user->phone_no = $inputs['phoneno'];;
+        $user->role = $inputs['role'];;
 
         $user->save();
 
-        return view('login');
+        return view('pages.client.login');
     }
 }

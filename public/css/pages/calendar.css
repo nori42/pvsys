@@ -1,0 +1,51 @@
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.day-name {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #111111;
+    color: white;
+}
+
+.day-name:hover {
+    background-color: #292929
+}
+
+.day {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #eee;
+}
+
+.day.booked {
+    background-color: #305070;
+    color: white;
+}
+
+.day.notavail {
+    background-color: #703030;
+    color: white;
+}
+
+.day.holiday {
+    background-color: #eb9553;
+    color: white;
+}
+
+.day.completed {
+    background-color: #449540;
+    color: white;
+}
+
+.day.selected {
+    background-color: #9ec3e9;
+    color: white;
+}

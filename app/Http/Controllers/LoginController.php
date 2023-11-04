@@ -13,10 +13,37 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
-        }
+           
+            if($request->loginas == 'customer'){
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+                    
+                    if(Auth::user()->role == "ADMINISTRATOR")
+                        return redirect()->intended('/admin')->with('incorrectRoleLogin','Admin cannot login in client');
+
+                    return redirect()->intended('/services');
+                }
+            } else {
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+                    
+                    if(Auth::user()->role == "CUSTOMER")
+                        return redirect()->intended('/login')->with('incorrectRoleLogin','Client cannot login in admin');
+
+                    return redirect()->intended('/bookings?status=pending');
+                }
+            }
+
+        return back()->with('invalidCred',true);
+    }
+
+    public function logout(){
+        $role = Auth::user()->role;
+        Auth::logout();
+
+        if($role == "CUSTOMER")
+            return redirect('/login');
+        else
+            return redirect('/admin');
     }
 }

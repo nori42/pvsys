@@ -1,0 +1,44 @@
+@import url('../../global.css');
+
+body {
+    background-color: var(--dark-color);
+}
+
+section {
+    height: 100vh;
+    background-color:var(--dark-color);
+}
+
+.banner {
+    background-image: url('../../../images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.services {
+    height: auto;
+}
+
+.aboutme {
+    min-height: 590px;
+}
+
+.featurework {
+   height: auto;
+   margin-bottom: 120px;
+}
+
+.btn-service {
+    color: var(--primary-color);
+}
+
+.btn-service:hover {
+    color: white;
+}
+
+.btn-service.active {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid white;
+    color: white;
+}

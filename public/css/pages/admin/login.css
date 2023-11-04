@@ -1,0 +1,29 @@
+@import url(../../global.css);
+
+.login-form {
+    width: 480px;
+    padding: 2rem 7rem;
+}
+
+main {
+    height: 100vh;
+}
+
+.form-input {
+    background-color: transparent;
+    border: 1px solid #6C757D;
+    padding: 0.285rem;
+    color: white;
+}
+
+.left-panel {
+    width: 100%;
+    background-color: #0F0F0F;
+    display: grid;
+    place-items: center;
+}
+
+.right-panel {
+    width: 100%;
+    background-color: #505457;
+}

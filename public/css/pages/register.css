@@ -1,0 +1,27 @@
+@import url(../global.css);
+
+body {
+    overflow: hidden;
+}
+
+.login-form {
+    background-color: rgba(0, 0, 0, 0.70);
+    width: 480px;
+    padding: 2rem 5rem;
+}
+
+main {
+    height: 100vh;
+    background-image: url('../../../images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 10rem;
+}
+
+.form-input {
+    padding: 0.425rem 0.825rem;
+    background-color: #505457;
+    border: 0;
+    border-radius: 0;
+    color: var(--text-white);
+}

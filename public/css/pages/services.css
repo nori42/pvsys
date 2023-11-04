@@ -1,0 +1,29 @@
+@import url(../global.css);
+
+.carousel-item-nbs {
+    display: none;
+}
+
+.carousel-item-nbs.active {
+    display: block;
+}
+
+.btn-service {
+    color: #A1A4A7;
+}
+
+.btn-service.active {
+    color: var(--primary-color);
+    border: none;
+    border-bottom: 1px solid var(--primary-color);
+    border-radius: 0;
+}
+
+.btn-service:hover {
+    color: var(--primary-color);
+}
+
+.btn-service:active {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}

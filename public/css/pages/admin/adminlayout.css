@@ -1,0 +1,10 @@
+@import url(../../global.css);
+
+nav {
+    background-color: var(--dark-color);
+    padding: 1rem 8rem;
+}
+
+body {
+    background-color: #DDDDDD;
+}
