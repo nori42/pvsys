@@ -99,7 +99,8 @@
                                         data-btn-accept data-bookingId={{ $book->id }} accept-modal>Accept</button>
                                     <button class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="{{ request('status') == 'pending' ? '#declineModal' : '#declineReschedModal' }}"
-                                        data-btn-declineResch data-bookingId={{ $book->id }}>Decline</button>
+                                        data-btn-declineResch data-btn-decline
+                                        data-bookingId={{ $book->id }}>Decline</button>
                                 </div>
                             @endif
                             @if (request('status') == 'accepted')

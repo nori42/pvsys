@@ -80,7 +80,6 @@ class BookController extends Controller
         $bookingId = "{$bookingDateId}{$inputs['userId']}{$uniqueId}";
         $booking->id = $bookingId;
         $booking->session_category = Utilities::getCategory(($inputs['sessionType']));
-
         $booking->session_type = ucwords($inputs['session']);
         $booking->session_date = $inputs['datePicked'];
         $booking->start_time = $inputs['startTime'];

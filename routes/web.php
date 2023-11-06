@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Service;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +25,7 @@ use Ramsey\Collection\Map\AssociativeArrayMap;
 |
 */
 
-Route::get('/',function() {
-    return view('pages.client.landing');
-})->name('landing');
+Route::get('/',LandingController::class)->name('landing');
 
 Route::get('/login', function () {
     Auth::logout();
@@ -112,41 +113,20 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
        return redirect('/calendar');
     });
 
+    Route::get('/bookingcalendar/{id}/show',function (Request $request){
+        $book = Booking::find($request->id);
+
+        return view('pages.admin.partialview.book',[
+            'book' => $book
+        ]);
+    });
 });
 
 
 // CLIENT ROUTES
 Route::middleware(['auth','roletype:CUSTOMER'])->group(function(){
     // Services Routes
-    Route::get('/services',function(Request $request){
-        $books = Booking::where(function ($query) {
-            $query->Where('status', '=', 'accepted')
-                  ->orWhere('status', '=', 'rescheduled');
-        })
-        ->where('user_id',auth()->user()->id)
-        ->get();
-
-        $bookNew = false;
-
-        if($request->bookNew == "true"){
-            foreach ($books as $book) {
-                if($book->status == "pending")
-                    $book->delete();
-            }
-            $bookNew = true;
-        }
-
-        $userHasBooking = $books->count() != 0;
-        $hasPending =  Booking::where('status','pending')
-        ->where('user_id',auth()->user()->id)
-        ->first() != null;
-
-        return view('pages.client.services',[
-            'userHasBooking' => $userHasBooking,
-            'hasPending' => $hasPending,
-            'bookNew' => $bookNew
-        ]);
-    });
+    Route::get('/services',[ServiceController::class,'index']);
 
     // Book Routes
     Route::get('/book/create',[BookController::class,'create']);
@@ -156,13 +136,6 @@ Route::middleware(['auth','roletype:CUSTOMER'])->group(function(){
         }
 
         return view('pages.client.book.bookMessage');
-    });
-    Route::get('/bookingcalendar/{id}/show',function (Request $request){
-        $book = Booking::find($request->id);
-
-        return view('pages.admin.partialview.book',[
-            'book' => $book
-        ]);
     });
 
     Route::get('/book/{id}',[BookController::class,'show']);

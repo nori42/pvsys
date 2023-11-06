@@ -1,3 +1,5 @@
+@import url('../global.css');
+
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -5,9 +7,8 @@
 }
 
 .day-name {
-    border: 1px solid #ccc;
     padding: 10px;
-    background-color: #111111;
+    background-color: transparent;
     color: white;
 }
 
@@ -16,13 +17,16 @@
 }
 
 .day {
-    border: 1px solid #ccc;
+    border: 1px solid #585858;
+    background-color: #dadada;
+    color: #2f2f2f;
     padding: 10px;
     cursor: pointer;
 }
 
 .day:hover {
     background-color: #eee;
+    color: black;
 }
 
 .day.booked {
@@ -46,6 +50,6 @@
 }
 
 .day.selected {
-    background-color: #9ec3e9;
+    background-color: var(--primary-color);
     color: white;
 }

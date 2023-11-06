@@ -61,15 +61,17 @@ btnDecline.forEach((btn) => {
     });
 });
 
-btnDeclineResch.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        const inputBookingId = document
-            .querySelector("#declineReschedForm")
-            .querySelector("[data-bookId]");
+if (document.querySelector("#declineReschedForm"))
+    btnDeclineResch.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const inputBookingId = document
+                .querySelector("#declineReschedForm")
+                .querySelector("[data-bookId]");
 
-        inputBookingId.value = e.target.getAttribute("data-bookingId");
+            inputBookingId.value = e.target.getAttribute("data-bookingId");
+        });
     });
-});
+
 bookingFilter.addEventListener("change", (e) => {
     location.href = `/bookings?status=${e.target.value}`;
 });

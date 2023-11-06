@@ -10,6 +10,7 @@
 
         <div>
             <a href="/book/{{ auth()->user()->id }}">My Bookings</a>
+            <a href="/services">Services</a>
             <a href="#">Norlitz Portfolio</a>
         </div>
         <div class="text-center">

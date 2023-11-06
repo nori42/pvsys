@@ -24,13 +24,7 @@
         </div>
     </section>
     <section class="services py-5">
-        <h1 class="text-white fw-semibold text-center">Services Offer</h1>
-        <p class="text-center w-50 mx-auto text-white">
-            At Norlitz Bato Films, we understand the importance of life's special occasions. Our dedicated photo and video
-            booking services are designed to capture the essence of your most treasured events. Whether it's a dream
-            wedding, a memorable celebration, or an intimate gathering, we're here to turn your vision into stunning
-            reality. Cherish your priceless moments with us.
-        </p>
+        {{--
 
         <div class="d-flex justify-content-center text-primary-nb gap-5 mt-5">
             <button class="btn btn-service active">Corporate Events</button>
@@ -48,7 +42,33 @@
             <x-landing.service name="CONFERENCE" :description="$string" />
             <x-landing.service name="CONFERENCE" :description="$string" />
             <x-landing.service name="CONFERENCE" :description="$string" />
+        </div> --}}
+        <h1 class="text-white fw-semibold text-center">Services Offer</h1>
+        <p class="text-center w-50 mx-auto text-white">
+            At Norlitz Bato Films, we understand the importance of life's special occasions. Our dedicated photo and video
+            booking services are designed to capture the essence of your most treasured events. Whether it's a dream
+            wedding, a memorable celebration, or an intimate gathering, we're here to turn your vision into stunning
+            reality. Cherish your priceless moments with us.
+        </p>
+        <div class="d-flex justify-content-center gap-2 my-3">
+            <x-services.button text="Corporate Events" :active="true" onclick="showServices('#corporateevents',this)" />
+            <x-services.button text="Commercial Shoots" onclick="showServices('#commercialshoots',this)" />
+            <x-services.button text="Potraits" onclick="showServices('#portraits',this)" />
+            <x-services.button text="Social Events" onclick="showServices('#socialevents',this)" />
+            <x-services.button text="Weddings" onclick="showServices('#weddings',this)" />
         </div>
+
+        @foreach ($services as $key => $value)
+            <div id="{{ str_replace(' ', '', $key) }}" serviceCategory {{ $loop->index == 0 ? '' : 'd-none' }}">
+                <div class="d-flex justify-content-center flex-wrap gap-3">
+                    @foreach ($value as $service)
+                        {{-- <x-services.service name="{{ $service->name }}" type="{{ $service->type }}"
+                            imagePath="{{ $service->imagePath }}" :viewOnly="true" /> --}}
+                        <img src="{{ $service->imagePath }}" alt="services" height="340" width="640">
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </section>
     <section class="aboutme py-5">
 
@@ -91,4 +111,20 @@
 @endsection
 
 @section('scripts')
+    <script>
+        function showServices(category, elem) {
+            const categories = document.querySelectorAll("[serviceCategory]");
+            const btnServices = document.querySelectorAll(".btn-service");
+
+            btnServices.forEach((btn) => {
+                btn.classList.remove("active");
+            });
+            categories.forEach((item) => {
+                item.classList.add("d-none");
+            });
+            document.querySelector(category).classList.remove("d-none");
+
+            elem.classList.add("active");
+        }
+    </script>
 @endsection

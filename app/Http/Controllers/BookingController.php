@@ -55,6 +55,9 @@ class BookingController extends Controller
     
     public function acceptBook(Request $request){
         $booking = Booking::where('id',$request->bookingId)->first();
+
+        error_log($booking);
+
         $booking->accept($request->paymentAmount,$request->method,$request->message);
 
         return redirect('/bookings');
@@ -83,6 +86,9 @@ class BookingController extends Controller
 
     public function declineBook(Request $request){
         $booking = Booking::where('id',$request->bookingId)->first();
+
+        error_log($request->bookingId);
+
         $booking->decline($request->message);
         
         return redirect('/bookings?status=pending');

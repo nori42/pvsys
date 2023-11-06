@@ -1,3 +1,4 @@
+
 :root {
     --form-color: #dbdbdb;
     --primary-color: #FB7434;
@@ -27,3 +28,21 @@
     border:1px solid red;
 }
 
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+::-webkit-scrollbar-thumb {
+    background: #a2a2a2; 
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+background: transparent;
+}
+
+
+::-webkit-scrollbar:horizontal {
+    height: 4px;
+  }

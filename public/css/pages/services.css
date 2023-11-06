@@ -27,3 +27,13 @@
     color: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
 }
+
+.btn-book {
+    bottom: 1.325rem;
+    right: 1.325rem;
+}
+
+.service-container {
+    scrollbar-color:orange;
+    scrollbar-width: thin;
+}

@@ -1,14 +1,9 @@
-@props(['name', 'type', 'viewOnly' => false])
+@props(['name', 'type', 'imagePath' => null, 'viewOnly' => false])
 
-<div class="card" style="min-width: 25rem; max-width: 25rem;">
-    <img src="{{ asset('images/services/test1.png') }}" class="card-img-top" alt="service_pic">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center card-title">
-            <div>{{ $name }}</div>
-            @if (!$viewOnly)
-                <a class="btn btn-success"
-                    href="/book/create?session={{ $name }}&sessionType={{ $type }}">Book</a>
-            @endif
-        </div>
-    </div>
+<div class="card" style="min-width: 45rem; max-width: 45rem;">
+    <img src="{{ asset($imagePath) }}" class="card-img-top" alt="service_pic">
+    @if (!$viewOnly)
+        <a class="btn btn-primary-nb btn-book position-absolute"
+            href="/book/create?session={{ $name }}&sessionType={{ $type }}&imagePath={{ $imagePath }}">Book</a>
+    @endif
 </div>

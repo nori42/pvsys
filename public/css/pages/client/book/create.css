@@ -1,0 +1,17 @@
+
+.form-create {
+    background-color: #1A1A1B;
+}
+
+#calendarModal .modal-content {
+    background-color: #424242;
+    color: white;
+}
+
+input,textarea{
+    background-color: #424242 !important;
+    color: white !important;
+}
+::placeholder{
+    color: #b2b2b2 !important;
+}
