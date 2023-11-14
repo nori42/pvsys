@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('not_available_date', function (Blueprint $table) {
             $table->date('date')->unique();
+            $table->string('message');
         });
     }
 
@@ -23,6 +24,8 @@ return new class extends Migration
      *
      * @return void
      */
+
+     
     public function down()
     {
         Schema::dropIfExists('not_available_date');

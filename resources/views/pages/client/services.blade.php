@@ -14,7 +14,6 @@
 @endsection
 
 @section('pagecontent')
-    {{-- @dd($services) --}}
     <p class="text-center text-white fw-bold mt-5">
         BOOK YOUR MEMORIES WITH <span class="text-primary-nb">NORLITZ BATO FILMS</span><br>
         More than just photographs. More than just films. <br>
@@ -23,21 +22,33 @@
     </p>
 
     <div class="d-flex justify-content-center gap-2 my-3">
-        <x-services.button text="Corporate Events" :active="true" onclick="showServices('#corporateevents',this)" />
-        <x-services.button text="Commercial Shoots" onclick="showServices('#commercialshoots',this)" />
+        <x-services.button text="Corporate Events" :active="true" onclick="showServices('#corporate_events',this)" />
+        <x-services.button text="Commercial Shoots" onclick="showServices('#commercial_shoots',this)" />
         <x-services.button text="Potraits" onclick="showServices('#portraits',this)" />
-        <x-services.button text="Social Events" onclick="showServices('#socialevents',this)" />
+        <x-services.button text="Social Events" onclick="showServices('#social_events',this)" />
         <x-services.button text="Weddings" onclick="showServices('#weddings',this)" />
     </div>
 
     @foreach ($services as $key => $value)
         <div id="{{ str_replace(' ', '', $key) }}" serviceCategory
-            class="p-5 gap-3 justify-content-center {{ $loop->index == 0 ? '' : 'd-none' }}">
+            class="p-5 gap-3 justify-content-center {{ $key == 'corporate_events' ? '' : 'd-none' }}">
             <div class="d-flex overflow-x-auto gap-3 py-3">
                 @foreach ($value as $service)
-                    <x-services.service name="{{ $service->name }}" type="{{ $service->type }}"
-                        imagePath="{{ $service->imagePath }}" :viewOnly="$viewOnly" />
+                    <x-services.service name="{{ $service['name'] }}" type="{{ $service['type'] }}"
+                        imagePath="{{ $service['imagePath'] }}" />
                 @endforeach
+            </div>
+
+
+            <div class="photo-album p-3 mt-5">
+                <h1 class="text-white fw-bold fs-4"><i class="bi bi-images" style="font-size: 2rem"></i>
+                    {{ ucwords(str_replace('_', ' ', $key)) }}'s photo album</h1>
+                <p class="text-white">Every moment has a story, see their happy moment captured by us.</p>
+                <div class="row justify-content-center row-gap-4 column-gap-0">
+                    @foreach ($albums[$key] as $imagePath)
+                        <img class="col-auto" src="{{ asset($imagePath) }}" width="370" height="240" alt="album_photo">
+                    @endforeach
+                </div>
             </div>
         </div>
     @endforeach

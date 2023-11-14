@@ -6,6 +6,27 @@
     text-align: center;
 }
 
+.date-legend {
+    width: 1rem; 
+    height: 1rem; 
+}
+
+.date-legend.booked {
+    background-color:var(--primary-color);
+}
+
+.date-legend.holiday {
+    background-color: #703030;
+}
+
+.date-legend.notavail {
+    background-color: #232323;
+}
+
+.date-legend.completed {
+    background-color: #449540;
+}
+
 .day-name {
     padding: 10px;
     background-color: transparent;
@@ -24,23 +45,34 @@
     cursor: pointer;
 }
 
+.day.disabled {
+    color: #bcbcbc;
+    background-color: rgb(137, 137, 137);
+    cursor: default;
+}
+
+.day.disabled:hover {
+    color: #bcbcbc;
+    background-color: rgb(137, 137, 137);
+}
+
 .day:hover {
     background-color: #eee;
     color: black;
 }
 
 .day.booked {
-    background-color: #305070;
+    background-color:var(--primary-color);
     color: white;
 }
 
 .day.notavail {
-    background-color: #703030;
+    background-color: #232323;
     color: white;
 }
 
 .day.holiday {
-    background-color: #eb9553;
+    background-color: #703030;
     color: white;
 }
 
@@ -50,6 +82,6 @@
 }
 
 .day.selected {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: #ffba82;
+    color: black;
 }

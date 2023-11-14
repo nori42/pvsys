@@ -41,7 +41,7 @@
                     <div class="d-flex gap-3 my-3">
                         <div>
                             <label for="startTime" class="fw-bold fs-5">Start Time</label>
-                            <input class="form-control " type="time" name="startTime" id="startTime" value="08:00">
+                            <input class="form-control" type="time" name="startTime" id="startTime" value="08:00">
                         </div>
 
                         <div>
@@ -66,12 +66,88 @@
                         <input id="video" name="isVideo" type="checkbox" value="Video">
                     </div>
 
+                    @if (session('inputError'))
+                        <div class="text-danger">{{ session('inputError') }}</div>
+                    @endif
+
                     <textarea class="form-control" name="moreDetails" id="" cols="30" rows="6"
                         placeholder="More details of the session" style="resize: none;"></textarea>
 
-                    <button class="btn btn-dark mt-3 float-end">Book</button>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-dark mt-4">Book</button>
+                    </div>
                 </div>
             </form>
+            <div class="text-white" style="width: 30%">
+
+                <div class=" p-4" style="background-color: #282829">
+
+                    <h1 class="fs-3">Booking and Payment Proccess:</h1>
+                    <div>To book your photoshoot session, follow these simple steps:</div>
+
+                    <ul class="m-0">
+                        <li class="text-secondary"><span class="fw-bold text-white">Booking Process:</span> Submit your
+                            request
+                            through our online form to express
+                            your interest in our
+                            photography services. </li>
+                        <li class="text-secondary"><span class="fw-bold text-white">Availability Confirmation:</span> Our
+                            photographer will call you to confirm their availability on the requested date. If they are
+                            available, we will proceed to discuss the pricing details.</li>
+                        <li class="text-secondary"><span class="fw-bold text-white">Customized Quote:</span> During the
+                            call,
+                            you will receive a personalized quote based on your specific requirements. This ensures that you
+                            get
+                            a fair and accurate price tailored to the services you need.</li>
+                        <li class="text-secondary"><span class="fw-bold text-white">Transparent Pricing:</span> We believe
+                            in
+                            transparency. The quoted price will include all applicable fees, ensuring that there are no
+                            hidden
+                            costs.</li>
+                        <li class="text-secondary"><span class="fw-bold text-white">Payment Options:</span> To secure your
+                            booking, our photographer requires a downpayment/full payment (whichever is applicable based on
+                            your
+                            <br>
+                            booking terms) before the session date.
+                            <ul>
+                                <li><span class="text-white">GCash:</span> The photographer's GCash details will be
+                                    provided
+                                    for a secure and convenient digital
+                                    payment option. Kindly ensure you have a GCash account ready for the transaction.</li>
+                                <li><span class="text-white">Cash:</span> If you prefer cash payments, the downpayment/full
+                                    payment must be made in cash. Please
+                                    arrange to provide the exact amount to the photographer before the session date.</li>
+                            </ul>
+                            You have two payment options:
+                        </li>
+                        <li class="text-secondary"><span class="fw-bold text-white">Confirmation:</span> Once you agree to
+                            the
+                            quoted price, your booking will be confirmed, and we will proceed with the necessary
+                            arrangements
+                            for your photo shoot session.</li>
+                    </ul>
+                </div>
+
+                <div class="mt-3">
+                    <div class="d-flex justify-content-around" style="background-color: #27292B;">
+                        <a class="btn text-primary-nb" href="/policy/reschedule"><i
+                                class="bi bi-calendar2-week-fill"></i>
+                            Reschedule Policy
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a class="btn text-primary-nb" href="/policy/cancellation">
+                            <i class="bi bi-x-octagon-fill"></i>
+                            Cancellation Policy
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="p-3 border border-1 border-gray-800">
+                        Reschedule and Cancellation is only applicable if you submit the request 96 hours (4 days) before
+                        the photoshoot date. Click the buttons above to view the complete policy.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div id="calendarModal" class="modal">
@@ -85,12 +161,16 @@
                             </div>
                             <div class="d-flex align-items-end gap-3">
                                 <div class="d-flex align-items-center">
-                                    <div class="mx-2">Booked</div>
-                                    <div style="width: 1rem; height: 1rem; background-color: #305070;"></div>
+                                    <div class="mx-2">Fully Booked</div>
+                                    <div class="date-legend booked"></div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="mx-2">Not Available</div>
-                                    <div style="width: 1rem; height: 1rem; background-color: #703030;"></div>
+                                    <div class="date-legend notavail"></div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="mx-2">Holiday</div>
+                                    <div class="date-legend holiday"></div>
                                 </div>
                             </div>
                         </div>
@@ -107,6 +187,7 @@
                             </div>
 
                             <button class="btn btn-dark" data-bs-dismiss="modal">Confirm</button>
+
                         </div>
                     </div>
                 </div>
@@ -122,9 +203,22 @@
 
         // Insert the list of not available date here
         const notAvailDate = @json($notAvailDates);
+        const notAvailDateMessage = @json($notAvailDateMssg);
 
         // Insert the holday date here
-        const holidayDate = []
+        const holidayDate = [
+            "01-01",
+            "04-09",
+            "04-13",
+            "04-14",
+            "05-01",
+            "06-12",
+            "08-21",
+            "08-28",
+            "11-01",
+            "12-25",
+            "12-30"
+        ]
     </script>
 
     <script src="{{ asset('js/pages/book.js') }}"></script>

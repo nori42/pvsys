@@ -18,8 +18,9 @@ return new class extends Migration
         Schema::create('rescheduled_bookings', function (Blueprint $table) {
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Booking::class);
-            $table->date('original_session_date');
             $table->date('rescheduled_session_date');
+            $table->date('rescheduled_start_time');
+            $table->date('rescheduled_end_time');
         });
     }
 

@@ -27,7 +27,9 @@ class LandingController extends Controller
     
         $services = collect($serviceArr);
     
-        return view('pages.client.landing',['services' => $services->groupBy('type')]);
+        return view('pages.client.landing',[
+            'services' => Utilities::getServices()
+        ]);
         
     }
 }

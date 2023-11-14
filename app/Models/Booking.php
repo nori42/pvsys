@@ -20,7 +20,7 @@ class Booking extends Model
     public function accept($payment,$method, $message = null){
         $this->status = 'accepted';
         $this->payment_method = $method;
-        $this->payment_amount = $payment;
+        $this->payment_total = $payment;
 
         DB::table('accepted_bookings')->insert([
             'booking_id' => $this->id,
@@ -39,7 +39,7 @@ class Booking extends Model
         return $this->save();
     }
 
-    public function reschedule($date,$message = null){
+    public function reschedule($date,$time_start,$time_end,$message = null){
         $this->status = 'rescheduled';
 
         if($message){
@@ -55,8 +55,9 @@ class Booking extends Model
         DB::table('rescheduled_bookings')->insert([
             'booking_id' => $this->id,
             'user_id' => $this->user_id,
-            'original_session_date' => $this->session_date,
-            'rescheduled_session_date' => $date
+            'rescheduled_session_date' => $date,
+            'rescheduled_start_time' => $time_start,
+            'rescheduled_end_time' => $time_end,
         ]);
 
         return $this->save();

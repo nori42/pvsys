@@ -3,3 +3,9 @@
 body {
     background-color: var(--dark-color);
 }
+
+.dropdown-menu-nb{
+    padding: 0 1.25rem;
+    translate: -80% 0;
+    background-color: #2f2f2f;
+}

@@ -86,6 +86,11 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
             $bookedIds[$book->id] = $book->session_date;
         }
 
+        // foreach($accptedBooking->groupBy('session_date') as $date => $bookdatesArr){
+        //     if(count($bookdatesArr) == 3)
+        //     array_push($bookedDates,$date);
+        // }
+
         foreach ($completedBooking as $book) {
             array_push($completedDates,$book->session_date);
             $completedIds[$book->id] = $book->session_date;
@@ -100,24 +105,25 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
             'bookedIds' => $bookedIds,
             'completedDates' => $completedDates,
             'completedIds' => $completedIds,
-            'notAvailDates' => $notAvailDates
+            'notAvailDates' => $notAvailDates,
+            'notAvailDateMssg' => $notAvailDateRes
         ]);
     });
     Route::post('/calendar/markdate',function(Request $request){
        if(DB::table('not_available_date')->where('date',$request->date)->exists()){
             DB::table('not_available_date')->where('date',$request->date)->delete();
        }else {
-            DB::table('not_available_date')->insert(['date'=>$request->date]);
+            DB::table('not_available_date')->insert(['date'=>$request->date,'message'=>$request->message]);
         }
 
        return redirect('/calendar');
     });
 
-    Route::get('/bookingcalendar/{id}/show',function (Request $request){
-        $book = Booking::find($request->id);
+    Route::get('/bookingcalendar/{date}/show',function (Request $request){
+        $bookings = Booking::where('session_date',$request->date)->get();
 
         return view('pages.admin.partialview.book',[
-            'book' => $book
+            'bookings' => $bookings
         ]);
     });
 });
@@ -128,6 +134,15 @@ Route::middleware(['auth','roletype:CUSTOMER'])->group(function(){
     // Services Routes
     Route::get('/services',[ServiceController::class,'index']);
 
+
+    //Policy Routes
+    Route::get('/policy/reschedule',function(){
+        return view('pages.client.book.reschedulepolicy');
+    });
+    Route::get('/policy/cancellation',function(){
+        return view('pages.client.book.cancellationpolicy');
+    });
+
     // Book Routes
     Route::get('/book/create',[BookController::class,'create']);
     Route::get('/book/message',function (Request $request){
@@ -137,11 +152,12 @@ Route::middleware(['auth','roletype:CUSTOMER'])->group(function(){
 
         return view('pages.client.book.bookMessage');
     });
-
-    Route::get('/book/{id}',[BookController::class,'show']);
+    
+    Route::get('/mybook/{id}',[BookController::class,'index']);
     Route::get('/book/{id}/reschedule',[BookController::class,'reschedule']);
     Route::post('/book/{id}/reschedule',[BookController::class,'rescheduleBook']);
     Route::post('/book/cancel',[BookController::class,'cancelBook']);
-    Route::post('/book/{id}',[BookController::class,'destroy']);
+    Route::post('/book/{id}/delete',[BookController::class,'destroy']);
     Route::post('/book',[BookController::class,'store']);
+
 });

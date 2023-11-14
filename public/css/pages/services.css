@@ -12,6 +12,10 @@
     color: #A1A4A7;
 }
 
+.photo-album {
+    background-color: #202122;
+}
+
 .btn-service.active {
     color: var(--primary-color);
     border: none;

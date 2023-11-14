@@ -1,11 +1,8 @@
-@extends('layout.main')
+@extends('layout.client')
 
-@section('stylesheets')
-@endsection
-
-@section('maincontent')
+@section('pagecontent')
     <main>
-        <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center mt-5">
             <div class="bg-dark p-5" style="width:720px;">
 
                 @if (request('messageType') == 'submit')
@@ -35,11 +32,8 @@
                         Your booking has been cancelled.
                     </p>
                 @endif
-                <a class="float-end" href="/book/{{ auth()->user()->id }}">View My Bookings</a>
+                <a class="float-end" href="/mybook/{{ auth()->user()->id }}">View My Bookings</a>
             </div>
         </div>
     </main>
-@endsection
-
-@section('scripts')
 @endsection

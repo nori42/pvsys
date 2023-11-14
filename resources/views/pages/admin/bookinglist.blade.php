@@ -49,7 +49,7 @@
                             <div class="row">
                                 @if (request('status') == 'rescheduled')
                                     <x-booking.data label="Original Date"
-                                        data="{{ date('F d, Y', strtotime($book->original_session_date)) }}" />
+                                        data="{{ date('F d, Y', strtotime($book->session_date)) }}" />
                                     <x-booking.data label="Reschedule Date"
                                         data="{{ date('F d, Y', strtotime($book->rescheduled_session_date)) }}" />
                                 @else
@@ -59,10 +59,21 @@
 
                             </div>
 
-                            <div class="row">
+                            @if (request('status') == 'rescheduled')
+                                <div class="row">
+                                    <x-booking.data label="Original Start Time" data="{{ $book->start_time }}" />
+                                    <x-booking.data label="Original End Time" data="{{ $book->end_time }}" />
+                                </div>
+                                <div class="row">
+                                    <x-booking.data label="Rescheduled Start Time"
+                                        data="{{ $book->rescheduled_start_time }}" />
+                                    <x-booking.data label="Rescheduled End Time"
+                                        data="{{ $book->rescheduled_end_time }}" />
+                                </div>
+                            @else
                                 <x-booking.data label="Start Time" data="{{ $book->start_time }}" />
                                 <x-booking.data label="End Time" data="{{ $book->end_time }}" />
-                            </div>
+                            @endif
 
                             <div class="row">
                                 <x-booking.data label="Service Type" data="{{ $book->service_type }}" />
@@ -139,8 +150,8 @@
                                 <div class="d-flex gap-2">
                                     <div>
                                         <label for="paymentAmount">Amount</label>
-                                        <input class="form-control" type="number" name="paymentAmount" id="paymentAmount"
-                                            value="0" required>
+                                        <input class="form-control" type="number" name="paymentAmount"
+                                            id="paymentAmount" value="0" required>
                                     </div>
                                     <div>
 

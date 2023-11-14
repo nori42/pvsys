@@ -3,6 +3,7 @@ const btnNavMonth = document.querySelectorAll("[btn-nav-month]");
 const bookedDetail = document.querySelector("#bookedDetail");
 const dateMarker = document.querySelector("#dateMarker");
 const btnDateMark = document.querySelector("#btnDateMark");
+const message = document.querySelector("#message");
 const date = document.querySelector("#date");
 const bookedContainer = document.querySelector("#bookedContainer");
 
@@ -90,7 +91,7 @@ function generateCalendar(year, month) {
                 bookedContainer.classList.remove("d-none");
 
                 bookedDetail.src = `/bookingcalendar/${e.target.getAttribute(
-                    "bookedId"
+                    "dateValue"
                 )}/show`;
 
                 bookedDetail.addEventListener("load", () => {
@@ -113,6 +114,11 @@ function generateCalendar(year, month) {
 
                 date.value = dateElement.getAttribute("dateValue");
 
+                message.setAttribute("readonly", true);
+                message.textContent = notAvailDateMessage.find(
+                    (dateObj) => dateObj.date == dateValue
+                ).message;
+
                 document.querySelectorAll(".selected").forEach((item) => {
                     item.classList.remove("selected");
                 });
@@ -128,6 +134,9 @@ function generateCalendar(year, month) {
                 btnDateMark.classList.remove("btn-success");
 
                 date.value = dateElement.getAttribute("dateValue");
+
+                message.textContent = "";
+                message.removeAttribute("readonly");
 
                 document.querySelectorAll(".selected").forEach((item) => {
                     item.classList.remove("selected");

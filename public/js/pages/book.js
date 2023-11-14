@@ -8,6 +8,17 @@ const currentDate = new Date();
 // This is important
 currentDate.setDate(1);
 
+function isDateHoliday(date) {
+    const dateObj = new Date(date);
+    const dateHoliday = `${String(dateObj.getMonth() + 1).padStart(
+        2,
+        "0"
+    )}-${String(dateObj.getDate()).padStart(2, "0")}`;
+
+    console.log(dateHoliday);
+    return holidayDate.includes(dateHoliday);
+}
+
 function generateCalendar(year, month) {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDay = new Date(year, month, 1).getDay();
@@ -34,26 +45,36 @@ function generateCalendar(year, month) {
         dateElement.className = "day";
         dateElement.textContent = day;
 
+        const dateValue = `${year}-${String(month + 1).padStart(
+            2,
+            "0"
+        )}-${String(day).padStart(2, "0")}`;
+
         // Set Attribute Of the date
         dateElement.setAttribute("date", `${month + 1}/${day}/${year}`);
-        dateElement.setAttribute(
-            "dateValue",
-            `${year}-${month + 1}-${String(day).padStart(2, "0")}`
-        );
+        dateElement.setAttribute("dateValue", dateValue);
 
         if (
             day <= new Date().getDate() &&
             month == new Date().getMonth() &&
             year == new Date().getFullYear()
         ) {
-            dateElement.classList.add("notavail");
+            dateElement.classList.add("disabled");
         } else if (bookedDate.includes(dateElement.getAttribute("dateValue"))) {
             dateElement.classList.add("booked");
         } else if (
-            notAvailDate.includes(dateElement.getAttribute("dateValue")) ||
-            holidayDate.includes(dateElement.getAttribute("dateValue"))
+            notAvailDate.includes(dateElement.getAttribute("dateValue"))
         ) {
             dateElement.classList.add("notavail");
+            dateElement.classList.add("tooltip-nb");
+            const tooltip = document.createElement("span");
+            tooltip.textContent = notAvailDateMessage.find(
+                (dateObj) => dateObj.date == dateValue
+            ).message;
+            tooltip.classList.add("tooltiptext");
+            dateElement.appendChild(tooltip);
+        } else if (isDateHoliday(dateElement.getAttribute("dateValue"))) {
+            dateElement.classList.add("holiday");
         } else {
             // Click Event
             dateElement.addEventListener("click", function (e) {

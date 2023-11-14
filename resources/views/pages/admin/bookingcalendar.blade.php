@@ -15,16 +15,16 @@
                     <div class="d-flex align-items-end gap-3">
                         <div class="d-flex align-items-center">
                             <div class="mx-2">Booked</div>
-                            <div style="width: 1rem; height: 1rem; background-color: #305070;"></div>
+                            <div class="date-legend booked"></div>
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="mx-2">Completed</div>
-                            <div style="width: 1rem; height: 1rem; background-color: #449540;"></div>
+                            <div class="date-legend completed"></div>
                         </div>
 
                         <div class="d-flex align-items-center">
                             <div class="mx-2">Not Available</div>
-                            <div style="width: 1rem; height: 1rem; background-color: #703030;"></div>
+                            <div class="date-legend notavail"></div>
                         </div>
                     </div>
                 </div>
@@ -43,17 +43,20 @@
                     <div class="spinner-border" role="status">
                     </div>
                 </div>
-                <iframe id="bookedDetail" src="" frameborder="0" height="85%"></iframe>
+                <iframe id="bookedDetail" src="" frameborder="0" height="85%" width="100%"></iframe>
             </div>
 
             <div id="dateMarker"
                 class="d-flex justify-content-center align-items-center align-self-stretch shadow-lg px-3 d-none"
                 style="width: 380px;">
 
-                <form action="/calendar/markdate" method="post">
+                <form action="/calendar/markdate" method="post" autocomplete="off">
                     @csrf
-                    <input class="form-control text-center my-2" type="text" name="date" id="date" readonly>
                     <button id="btnDateMark" class="btn btn-danger w-100">Mark Not Available</button>
+
+                    <input class="form-control text-center my-2" type="text" name="date" id="date" readonly>
+                    <textarea class="form-control" name="message" id="message" cols="10" rows="5" style="resize: none;"
+                        placeholder="Not Available Message (Optional)"></textarea>
                 </form>
             </div>
         </div>
@@ -68,6 +71,7 @@
         const bookedIds = @json($bookedIds);
         const completedIds = @json($completedIds);
         const notAvailDate = @json($notAvailDates);
+        const notAvailDateMessage = @json($notAvailDateMssg);
     </script>
     <script src="{{ asset('js/pages/bookingcalendar.js') }}"></script>
 @endsection
