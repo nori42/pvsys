@@ -12,6 +12,17 @@ class BookController extends Controller
     //
 
     public function index(Request $request){
+        if($request->pastbooking == "on"){
+            $books = Booking::where('user_id',$request->id)
+            ->where('status','completed')
+            ->get();
+
+            return view('pages.client.book.show',[
+                'books' => $books
+            ]);
+        }
+
+
         $books = Booking::join('status_messages', 'bookings.id', '=', 'status_messages.booking_id')
         ->where('status','!=','completed')
         ->where('user_id',$request->id)
@@ -91,14 +102,13 @@ class BookController extends Controller
         $booking = new Booking();
         $uniqueId =  DB::table('insertion_counts')->where('table_name','bookings')->value('count');
         $bookingDateId = date('mY');
-        $bookingId = "{$bookingDateId}{$inputs['userId']}{$uniqueId}";
+        $bookingId = "{$bookingDateId}{$uniqueId}";
         $booking->id = $bookingId;
         $booking->session_category = ucwords($inputs['sessionType']);
         $booking->session_type = ucwords($inputs['session']);
         $booking->session_date = $inputs['datePicked'];
         $booking->start_time = $inputs['startTime'];
         $booking->end_time = $inputs['endTime'];
-        $booking->payment_method = "Not Paid";
         $booking->event_location = $inputs['eventLocation'];
         $booking->status = defaultStatus; 
 
@@ -157,6 +167,7 @@ class BookController extends Controller
         
         return redirect('book/message?messageType=rescheduled');
     }
+
 
     public function destroy(Request $request){
         $book = Booking::find($request->id);

@@ -46,12 +46,20 @@
                 <p class="text-white">Every moment has a story, see their happy moment captured by us.</p>
                 <div class="row justify-content-center row-gap-4 column-gap-0">
                     @foreach ($albums[$key] as $imagePath)
-                        <img class="col-auto" src="{{ asset($imagePath) }}" width="370" height="240" alt="album_photo">
+                        <img class="col-auto" src="{{ asset($imagePath) }}" width="370" height="240" alt="album_photo"
+                            album-photo data-bs-target="#albumPhotoModal" data-bs-toggle="modal"
+                            style="cursor: pointer !important;">
                     @endforeach
                 </div>
             </div>
         </div>
     @endforeach
+
+    <x-modal id="albumPhotoModal" size="modal-xl">
+        <button class="btn btn-outline-primary-nb position-absolute text-gray-300 fs-5" data-bs-dismiss="modal"
+            style="right: 1rem; top: 1rem;">X</button>
+        <img id="albumPhoto" class="col-auto" src="" width="770" height="640" alt="album_photo">
+    </x-modal>
 @endsection
 
 @section('pagescript')

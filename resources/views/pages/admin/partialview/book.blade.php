@@ -1,4 +1,13 @@
 @extends('layout.main')
+@section('stylesheets')
+    <style>
+        body {
+            background-color: #393939;
+            color: white;
+            padding: 0 1rem;
+        }
+    </style>
+@endsection
 @section('maincontent')
     <main>
         @foreach ($bookings as $book)
@@ -38,7 +47,11 @@
                 <div><span class="fw-bold">Status: </span><span
                         class="@if ($book->status == 'accepted' || $book->status == 'completed') text-success @else text-secondary @endif">{{ Str::ucfirst($book->status) }}</span>
                 </div>
-
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-secondary" target="_parent"
+                        href="http://127.0.0.1:8000/bookings?status={{ $book->status }}" style="font-size: 0.775rem">Go To
+                        Booking List</a>
+                </div>
             </div>
             <hr>
         @endforeach

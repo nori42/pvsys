@@ -73,8 +73,19 @@
                     <textarea class="form-control" name="moreDetails" id="" cols="30" rows="6"
                         placeholder="More details of the session" style="resize: none;"></textarea>
 
+
+                    <div class="mt-3">
+                        <input type="checkbox" style="height: 1.2rem; width: 1.2rem;" id="acknowledgement">
+                        <label class="d-inline"><span class="text-primary-nb" for="acknowledgement">I acknowledge and agree
+                                to the cancellation
+                                and
+                                rescheduling policies.</span>
+                            (For a detailed
+                            understanding, please click Reschedule and Cancellaion button to read our policies).</label>
+                    </div>
+
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-dark mt-4">Book</button>
+                        <button class="btn btn-dark mt-4" id="btnSubmit" disabled>Submit</button>
                     </div>
                 </div>
             </form>
@@ -204,6 +215,13 @@
         // Insert the list of not available date here
         const notAvailDate = @json($notAvailDates);
         const notAvailDateMessage = @json($notAvailDateMssg);
+
+        document.querySelector('#acknowledgement').addEventListener('change', (ev) => {
+            if (ev.target.checked)
+                document.querySelector('#btnSubmit').disabled = false;
+            else
+                document.querySelector('#btnSubmit').disabled = true;
+        })
 
         // Insert the holday date here
         const holidayDate = [

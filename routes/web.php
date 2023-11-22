@@ -4,6 +4,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Service;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
@@ -57,6 +58,7 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
         return view('pages.dashboard');
     });
 
+    Route::get('/reports',[ReportController::class,'index']);
 
     //Booking Routes
     Route::get('/bookings',[BookingController::class,'index']);
@@ -68,6 +70,7 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
     Route::post('/bookings/cancel',[BookingController::class,'cancelBook']);
     Route::post('/bookings/decline',[BookingController::class,'declineBook']);
     Route::post('/bookings/declinereschedule',[BookingController::class,'declineReschedule']);
+    Route::post('/bookings/addpayment',[BookingController::class,'addpayment']);
 
 
     //Booking Calender

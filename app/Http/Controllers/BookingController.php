@@ -11,11 +11,21 @@ class BookingController extends Controller
         if($request->status == null)
             return back();
 
+        // QuickStat
+        $statusBookings = [
+            'pending' => Booking::where('status','pending')->count(),
+            'accepted' => Booking::where('status','accepted')->count(),
+            'rescheduled' => Booking::where('status','rescheduled')->count(),
+            'completed' => Booking::where('status','completed')->count(),
+            'cancelled' => Booking::where('status','cancelled')->count()
+        ];
+
         //If search
         if($request->search){
             $booking = Booking::where('id',$request->search)->get();
             return view('pages.admin.bookinglist',[
-                'bookings' => $booking
+                'bookings' => $booking,
+                'statusBookings' => $statusBookings
             ]);
         } 
 
@@ -40,7 +50,8 @@ class BookingController extends Controller
         }
 
         return view('pages.admin.bookinglist',[
-            'bookings' => $bookings
+            'bookings' => $bookings,
+            'statusBookings' => $statusBookings
         ]);
     }
 
@@ -56,11 +67,18 @@ class BookingController extends Controller
     public function acceptBook(Request $request){
         $booking = Booking::where('id',$request->bookingId)->first();
 
-        error_log($booking);
-
-        $booking->accept($request->paymentAmount,$request->method,$request->message);
+        $booking->accept($request->paymentAmount,$request->paymentType,$request->downpaymentAmount,$request->message);
 
         return redirect('/bookings');
+    }
+
+    
+    public function addPayment(Request $request){
+        $booking = Booking::where('id',$request->bookingId)->first();
+
+        $booking->addPayment($request->amount);
+
+        return redirect('/bookings?status=accepted');
     }
 
     public function acceptReschedule(Request $request){

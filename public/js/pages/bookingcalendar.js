@@ -108,7 +108,7 @@ function generateCalendar(year, month) {
             dateElement.addEventListener("click", function (e) {
                 bookedContainer.classList.add("d-none");
                 dateMarker.classList.remove("d-none");
-                btnDateMark.textContent = "Mark Available";
+                btnDateMark.textContent = "Mark as Available";
                 btnDateMark.classList.add("btn-success");
                 btnDateMark.classList.remove("btn-danger");
 
@@ -129,7 +129,7 @@ function generateCalendar(year, month) {
             dateElement.addEventListener("click", function (e) {
                 bookedContainer.classList.add("d-none");
                 dateMarker.classList.remove("d-none");
-                btnDateMark.textContent = "Mark Not Available";
+                btnDateMark.textContent = "Mark as Not Available";
                 btnDateMark.classList.add("btn-danger");
                 btnDateMark.classList.remove("btn-success");
 
@@ -180,21 +180,24 @@ btnNavMonth.forEach((btn) => {
         }
         if (button.getAttribute("btn-nav-month") == "previous") {
             currentDate.setMonth(currentDate.getMonth() - 1);
-            if (currentDate.getFullYear() > new Date().getFullYear()) {
-                generateCalendar(
-                    currentDate.getFullYear(),
-                    currentDate.getMonth()
-                );
-            } else {
-                if (currentDate.getMonth() >= new Date().getMonth()) {
-                    generateCalendar(
-                        currentDate.getFullYear(),
-                        currentDate.getMonth()
-                    );
-                } else {
-                    currentDate.setMonth(currentDate.getMonth() + 1);
-                }
-            }
+
+            generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+
+            // if (currentDate.getFullYear() > new Date().getFullYear()) {
+            //     generateCalendar(
+            //         currentDate.getFullYear(),
+            //         currentDate.getMonth()
+            //     );
+            // } else {
+            //     if (currentDate.getMonth() >= new Date().getMonth()) {
+            //         generateCalendar(
+            //             currentDate.getFullYear(),
+            //             currentDate.getMonth()
+            //         );
+            //     } else {
+            //         currentDate.setMonth(currentDate.getMonth() + 1);
+            //     }
+            // }
         }
     });
 });

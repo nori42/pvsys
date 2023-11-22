@@ -23,12 +23,13 @@ return new class extends Migration
             $table->time('end_time');
             $table->string('event_location');
             $table->string('service_type');
-            $table->string('payment_method')->nullable();
             $table->string('payment_total')->nullable();
-            $table->string('payment_down')->nullable();
+            $table->string('payment_balance')->nullable();
+            $table->string('payment_type')->nullable();
             $table->date('booked_date');
             $table->text('more_details')->nullable();
             $table->enum('status',['pending','accepted','declined','rescheduled','completed','cancelled']);
+            $table->date('deleted_at')->nullable();
             $table->foreignIdFor(User::class,'user_id');
         });
     }

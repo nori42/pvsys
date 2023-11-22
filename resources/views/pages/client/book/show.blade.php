@@ -18,10 +18,15 @@
             <div class="bg-secondary-subtle" style="width:720px;">
                 <div class="fs-2 fw-bold bg-secondary p-2">Current Booking</div>
                 <div class="p-4 bg-dark">
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <button class="btn btn-secondary rounded-0">Current Booking</button>
-                            <button class="btn btn-secondary rounded-0">Past Booking</button>
+
+                        </div>
+                        <div>
+                            <a class="btn btn-secondary rounded-0" href="{{ auth()->user()->id }}">Current Booking</a>
+                            <a class="btn btn-secondary rounded-0" href="{{ auth()->user()->id }}?pastbooking=on">Past
+                                Booking</a>
+                            <a class="btn btn-primary-nb rounded-0" href="/services?bookNew=true">Book New Session</a>
                         </div>
                     </div>
                     <div class="my-5">
@@ -33,6 +38,7 @@
                                         <x-book.data label="Submission Date"
                                             data="{{ date('F d,Y', strtotime($book->booked_date)) }}" />
                                         <div class="mb-3"></div>
+                                        <x-book.data label="Book Id" data="{{ $book->id }}" />
                                         <x-book.data label="Service Category" data="{{ $book->session_category }}" />
                                         <x-book.data label="Type of Service" data="{{ $book->session_type }}" />
                                         <x-book.data label="Event Service" data="{{ $book->service_type }}" />
@@ -55,14 +61,30 @@
                                             <x-book.data label="Message" data="{{ $book->message }}" />
                                         @endif
 
+                                        @if ($book->status != 'pending')
+                                            <x-book.data label="Payment Type"
+                                                data="{{ Str::ucfirst($book->payment_type) }}" />
+                                            <x-book.data label="Payment Total" data="₱{{ $book->payment_total }}" />
+                                            @if ($book->payment_type == 'Downpayment')
+                                                <x-book.data label="Balance" data="₱{{ $book->payment_balance }}" />
+                                            @endif
+                                        @endif
+
 
                                     </div>
                                     <div class="w-50 d-flex flex-column gap-3">
-                                        <div class="text-center text-primary-nb fw-bold">{{ Str::ucfirst($book->status) }}
+                                        <div class="text-center text-nowrap text-primary-nb fw-bold">
+                                            <span class="text-white">Status:</span>
+                                            {{ Str::ucfirst($book->status) }}
                                         </div>
+                                    </div>
 
+                                </div>
+                                @if (session('pastbooking'))
+                                @else
+                                    <div class="d-flex justify-content-end gap-3 mt-4">
                                         @if ($book->status == 'accepted')
-                                            <a class="btn btn-outline-secondary"
+                                            <a class="btn btn-outline-primary-nb"
                                                 href="/book/{{ $book->id }}/reschedule">Reschedule</a>
                                         @elseif ($book->status == 'rescheduled')
                                             <button class="btn btn-outline-danger text-nowrap" type="button"
@@ -74,7 +96,7 @@
                                         @if ($book->status == 'accepted' || $book->status == 'pending')
                                             <button class="btn btn-outline-danger" type="button" data-bs-toggle="modal"
                                                 data-bookId ="{{ $book->id }}" data-bs-target="#cancelModal"
-                                                onclick="passIdToModal(this)">Cancel</button>
+                                                onclick="passIdToModal(this)">Cancel Booking</button>
                                         @endif
 
                                         @if ($book->status == 'declined' || $book->status == 'cancelled')
@@ -84,7 +106,7 @@
                                             </form>
                                         @endif
                                     </div>
-                                </div>
+                                @endif
                                 <hr>
                             @endforeach
                         @else
@@ -93,10 +115,10 @@
                     </div>
                     <div>
                     </div>
-                    <div class="d-flex justify-content-end gap-3">
+                    {{-- <div class="d-flex justify-content-end gap-3">
 
                         <a class="btn btn-primary-nb rounded-0" href="/services?bookNew=true">Book New Session</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -107,7 +129,9 @@
                 <form action="/book/cancel" method="post">
                     @csrf
                     <input type="hidden" id="bookingId" name="bookingId">
-                    <div class="fs-5 text-white">Do you want to cancel this booking?</div>
+                    <div class="fs-5 text-white">Do you want to cancel this booking? <br><span class="text-secondary">This
+                            action cannot be undone.</span>
+                    </div>
                     <div class="d-flex justify-content-end gap-3 mt-3">
                         <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Back</button>
                         <button class="btn btn-danger">Cancel</button>

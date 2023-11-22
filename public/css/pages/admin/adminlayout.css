@@ -6,5 +6,5 @@ nav {
 }
 
 body {
-    background-color: #DDDDDD;
+    background-color: var(--dark-color);
 }

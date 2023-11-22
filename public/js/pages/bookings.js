@@ -2,8 +2,10 @@ const btnAccept = document.querySelectorAll("[data-btn-accept]");
 const btnComplete = document.querySelectorAll("[data-btn-complete]");
 const btnCancel = document.querySelectorAll("[data-btn-cancel]");
 const btnDecline = document.querySelectorAll("[data-btn-decline]");
+const btnPayment = document.querySelectorAll("[data-btn-payment]");
 const btnDeclineResch = document.querySelectorAll("[data-btn-declineResch]");
 const bookingFilter = document.querySelector("#bookingFilter");
+const paymentType = document.querySelector("#paymentType");
 
 btnAccept.forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -18,7 +20,6 @@ btnAccept.forEach((btn) => {
                 .querySelector("[data-bookId]");
 
             inputPaymentMethod.value = "";
-            inputMethod.selectedIndex = 0;
         }
 
         if (document.querySelector("#rescheduledForm") != null) {
@@ -51,6 +52,16 @@ btnCancel.forEach((btn) => {
     });
 });
 
+btnPayment.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        const inputBookingId = document
+            .querySelector("#paymentForm")
+            .querySelector("[data-bookId]");
+
+        inputBookingId.value = e.target.getAttribute("data-bookingId");
+    });
+});
+
 btnDecline.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         const inputBookingId = document
@@ -75,3 +86,13 @@ if (document.querySelector("#declineReschedForm"))
 bookingFilter.addEventListener("change", (e) => {
     location.href = `/bookings?status=${e.target.value}`;
 });
+
+if (paymentType != null) {
+    paymentType.addEventListener("change", (ev) => {
+        const downpayment = document.querySelector("#downpayment");
+
+        if (ev.target.value == "Downpayment")
+            downpayment.classList.toggle("d-none");
+        else downpayment.classList.toggle("d-none");
+    });
+}

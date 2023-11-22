@@ -17,10 +17,23 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function accept($payment,$method, $message = null){
+    public function accept($payment,$paymentType,$downpayment,$message = null){
         $this->status = 'accepted';
-        $this->payment_method = $method;
+        $this->payment_type = $paymentType;
         $this->payment_total = $payment;
+
+        if($paymentType == 'Downpayment'){
+            $this->payment_balance = $payment - $downpayment;
+        }
+        else {
+            $this->payment_balance = 0;
+        }
+
+        DB::table('payments')->insert([
+            'booking_id' => $this->id,
+            'amount' => $downpayment,
+            'date_of_payment' => date('Y-m-d')
+        ]);
 
         DB::table('accepted_bookings')->insert([
             'booking_id' => $this->id,
@@ -142,6 +155,17 @@ class Booking extends Model
             );
         }
 
+        return $this->save();
+    }
+
+    public function addPayment($amount){
+        DB::table('payments')->insert([
+            'booking_id' => $this->id,
+            'amount' => $amount,
+            'date_of_payment' => date('Y-m-d')
+        ]);
+        
+        $this->payment_balance -= $amount;
         return $this->save();
     }
 

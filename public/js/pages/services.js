@@ -16,3 +16,9 @@ function showServices(category, elem) {
 
     elem.classList.add("active");
 }
+
+document.querySelectorAll("[album-photo]").forEach((photo) => {
+    photo.addEventListener("click", (elem) => {
+        document.querySelector("#albumPhoto").src = elem.target.src;
+    });
+});

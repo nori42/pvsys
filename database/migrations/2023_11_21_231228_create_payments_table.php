@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Booking;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rescheduled_bookings', function (Blueprint $table) {
-            $table->foreignIdFor(User::class);
+        Schema::create('payments', function (Blueprint $table) {
             $table->foreignIdFor(Booking::class);
-            $table->date('rescheduled_session_date');
-            $table->date('rescheduled_start_time');
-            $table->date('rescheduled_end_time');
-            $table->text('rescheduled_reason');
+            $table->integer('amount');
+            $table->date('date_of_payment');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rescheduled_booking');
+        Schema::dropIfExists('payments');
     }
 };
