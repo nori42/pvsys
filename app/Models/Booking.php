@@ -31,7 +31,7 @@ class Booking extends Model
 
         DB::table('payments')->insert([
             'booking_id' => $this->id,
-            'amount' => $downpayment,
+            'amount' => $paymentType == 'Downpayment' ? $downpayment : $payment,
             'date_of_payment' => date('Y-m-d')
         ]);
 

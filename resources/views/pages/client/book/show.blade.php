@@ -13,10 +13,13 @@
 @endsection
 
 @section('pagecontent')
+    {{-- @dd(request()->query('pastbooking')) --}}
     <main>
         <div class="d-flex justify-content-center text-white">
             <div class="bg-secondary-subtle" style="width:720px;">
-                <div class="fs-2 fw-bold bg-secondary p-2">Current Booking</div>
+                <div class="fs-2 fw-bold bg-secondary p-2"
+                    data-booking-label="{{ request()->query('pastbooking') == 'on' ? 'Past Booking' : 'Current Booking' }}">
+                </div>
                 <div class="p-4 bg-dark">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -61,7 +64,7 @@
                                             <x-book.data label="Message" data="{{ $book->message }}" />
                                         @endif
 
-                                        @if ($book->status != 'pending')
+                                        @if ($book->payment_type != null)
                                             <x-book.data label="Payment Type"
                                                 data="{{ Str::ucfirst($book->payment_type) }}" />
                                             <x-book.data label="Payment Total" data="₱{{ $book->payment_total }}" />

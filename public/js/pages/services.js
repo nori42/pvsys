@@ -1,7 +1,3 @@
-function helloWorld(test) {
-    console.log(test);
-}
-
 function showServices(category, elem) {
     const categories = document.querySelectorAll("[serviceCategory]");
     const btnServices = document.querySelectorAll(".btn-service");

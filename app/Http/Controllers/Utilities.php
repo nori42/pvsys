@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use Illuminate\Support\Facades\File;
 
 class Utilities {
@@ -56,5 +57,28 @@ class Utilities {
 
         return $images;
 
+    }
+
+    public static function getFeaturedWorkPhoto(){
+        $folderPath = public_path('images/landing/featured_work/photo');
+
+        $items = File::allFiles($folderPath);
+
+        $images = [];
+
+        foreach($items as $item){
+            $filePath = 'images/landing/featured_work/photo/'.$item->getRelativePathname();
+            array_push($images,$filePath);
+        }
+
+        return $images;
+    }
+
+    public static function getBookingSessionCount($sessionType) {
+        $bookingCount = Booking::where('session_type',$sessionType)->whereNot('status','pending')->count();
+        return [
+            'session' => $sessionType,
+            'count' => $bookingCount
+        ];
     }
 }

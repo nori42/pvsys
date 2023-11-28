@@ -60,13 +60,7 @@
                 <div class="text-white mx-3">who am I</div>
                 <div class="text-primary-nb fw-bold fs-5">HELLO</div>
                 <p class="text-white">
-                    I am Norlitz Bato, a seasoned filmmaker with over 6 years of professional experience. Through my
-                    creative lens, I craft compelling visual narratives that resonate with audiences. I am dedicated to
-                    going above and beyond for my clients, consistently delivering visually appealing productions. My
-                    expertise spans various genres, including weddings, debutante films, corporate shoots, and creative
-                    videos. With a keen eye for detail in editing and extensive experience in event videography, I bring
-                    stories to life on screen. My passion for storytelling through film has earned me respect within the
-                    industry, and I take pride in my work.
+                    {{ $aboutme }}
                 </p>
             </div>
         </div>
@@ -76,11 +70,10 @@
         <h1 class="text-primary-nb w-75 mx-auto"><span class="text-white">My</span> Featured Work</h1>
 
         <div class="w-75 mx-auto mt-5">
-            <div class="row gap-3">
-                @for ($i = 1; $i <= 16; $i++)
-                    <img class="col-auto" src="{{ asset("images/landing/featured_work/{$i}.png") }}" alt=""
-                        height="230px">
-                @endfor
+            <div class="d-flex flex-wrap gap-3">
+                @foreach ($featuredPhoto as $photoPath)
+                    <img class="" src="{{ asset($photoPath) }}" alt="featured_photo" height="230" width="230">
+                @endforeach
             </div>
         </div>
     </section>

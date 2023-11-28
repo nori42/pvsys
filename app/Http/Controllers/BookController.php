@@ -25,6 +25,7 @@ class BookController extends Controller
 
         $books = Booking::join('status_messages', 'bookings.id', '=', 'status_messages.booking_id')
         ->where('status','!=','completed')
+        ->whereNull('deleted_at')
         ->where('user_id',$request->id)
         ->get();
 
@@ -171,17 +172,17 @@ class BookController extends Controller
 
     public function destroy(Request $request){
         $book = Booking::find($request->id);
-        $book->delete();
+        $book->deleted_at = now();
+        $book->save();
 
         return redirect('mybook/'.auth()->user()->id);
     }
 
     public function cancelBook(Request $request){
-        
-        error_log($request->bookingId);
         $booking = Booking::where('id',$request->bookingId)->first();
-        $booking->delete();
-        
+        $booking->status = 'cancelled';
+        $booking->save();
+
         return redirect("mybook/".auth()->user()->id);
 
     }

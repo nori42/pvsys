@@ -4,17 +4,19 @@
 @endsection
 
 @section('pagecontent')
-    <div style="padding: 2rem 5rem;">
+    {{-- @dd($sessionCounts['commercial_shoots'][0]['count']) --}}
+    <div style="padding: 2rem 10%;">
         <div class="d-flex justify-content-between">
             <div class="fs-3 text-white">Quick Stats</div>
-            <select name="" id="" class="form-select w-25 text-white"
-                style="background-color: var(--dark-color); margin-right: 3rem;">
+            <select name="" id="" class="form-select w-25" disabled
+                style="bacakground-color: var(--dark-color); margin-right: 3rem;">
                 @for ($i = 1; $i <= date('m'); $i++)
                     @php
                         $month = date('F', strtotime("2023-{$i}-01"));
                         $monthNum = date('m', strtotime("2023-{$i}-01"));
                     @endphp
-                    <option value="{{ $monthNum }}">{{ $month }}</option>
+                    <option value="{{ $monthNum }}" @if ($month == date('F')) selected @endif>{{ $month }}
+                    </option>
                 @endfor
             </select>
         </div>
@@ -23,12 +25,19 @@
             <div>
                 <div class="text-white px-5 py-2" style="background-color: #353637;">Popular Services</div>
                 <div class="d-flex justify-content-around" style="background-color: #C3BCBE;">
-                    @for ($i = 0; $i < 5; $i++)
+
+                    @foreach ($topServices as $service)
+                        <div>
+                            <div class="fw-semibold">{{ $service->session_type }}</div>
+                            <div class="text-center fw-bold fs-4">{{ $service->count }}</div>
+                        </div>
+                    @endforeach
+                    {{-- @for ($i = 0; $i < 5; $i++)
                         <div>
                             <div class="fw-semibold">Fun Shoots</div>
                             <div class="text-center fw-bold fs-4">3</div>
                         </div>
-                    @endfor
+                    @endfor --}}
                 </div>
             </div>
             {{-- Overall and Income --}}
@@ -37,22 +46,39 @@
                 <div class="w-100">
                     <div class="text-white px-4 py-3" style="background-color: #353637;">Overall Bookings</div>
 
-                    @for ($x = 0; $x < 5; $x++)
+                    @php
+                        $bookingsLabel = [
+                            'corporate_events' => ['Corporate Events', 'Conferences', 'Corporate Parties', 'Prodcut Launches', 'Seminars', 'Team-Buiding Activities'],
+                            'commercial_shoots' => ['Commercial Shoots', 'Advertising Campaigns', 'Funshoots'],
+                            'portraits' => ['Portraits', 'Family Portraits', 'Senior Portraits', 'Professional Headshots', 'Lifestyle Photography'],
+                            'social_events' => ['Social Events', 'Anniversaries', 'Baby Showers', 'Birthdays', 'Christineng', 'Graduations'],
+                            'weddings' => ['Weddings', 'Bridal Showers', 'Ceremonies', 'Engagement Parties', 'Reception', 'Ultimate Wedding'],
+                        ];
+                    @endphp
+
+                    @foreach ($bookingsLabel as $bookingsCategory => $bookings)
                         <div>
                             <div class="d-flex px-5 py-2" style="background-color: #A1A4A7;">
-                                <div class="w-100 fw-semibold fs-5">Corporate Events</div>
-                                <div class="text-end w-100 fs-5">3</div>
+                                <div class="w-100 fw-semibold fs-5">{{ $bookings[0] }}</div>
+                                <div class="text-end w-100 fs-5">0</div>
                             </div>
-                            @for ($i = 0; $i < 3; $i++)
+
+                            @foreach ($bookings as $bookingSub)
+                                @if ($loop->index == 0)
+                                    @continue
+                                @endif
+
                                 <div style="background-color: #D9D9D9;">
                                     <div class="d-flex px-5">
-                                        <div class="w-100 fw-semibold fs-5">Conferences</div>
-                                        <div class="text-end w-100 fs-5">0</div>
+                                        <div class="w-100 fw-semibold fs-5">{{ $bookingSub }}</div>
+                                        <div class="text-end w-100 fs-5">
+                                            {{ $sessionCounts[$bookingsCategory][$loop->index - 1]['count'] }}
+                                        </div>
                                     </div>
                                 </div>
-                            @endfor
+                            @endforeach
                         </div>
-                    @endfor
+                    @endforeach
 
                 </div>
 
@@ -86,5 +112,5 @@
 @endsection
 
 @section('pagescript')
-    <script src="{{ asset('js/pages/bookings.js') }}"></script>
+    {{-- <script src="{{ asset('js/pages/bookings.js') }}"></script> --}}
 @endsection

@@ -92,7 +92,7 @@ if (paymentType != null) {
         const downpayment = document.querySelector("#downpayment");
 
         if (ev.target.value == "Downpayment")
-            downpayment.classList.toggle("d-none");
-        else downpayment.classList.toggle("d-none");
+            downpayment.classList.remove("d-none");
+        else downpayment.classList.add("d-none");
     });
 }

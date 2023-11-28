@@ -1,14 +1,18 @@
 <?php
 
+use App\Http\Controllers\AboutMeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\FeaturedWorkController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Service;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Models\Booking;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,8 +48,10 @@ Route::post('/register',[UserController::class,'store']);
 Route::post('/authenticate',[LoginController::class,'authenticate']);
 Route::get('/logout',[LoginController::class,'logout']);
 
+
 // ADMIN ROUTES
 Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
+
     Route::get('/admin/services',function(){
         return view('pages.admin.adminservices.index');
     });
@@ -58,11 +64,11 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
         return view('pages.dashboard');
     });
 
-    Route::get('/reports',[ReportController::class,'index']);
+    Route::get('/reports',[ReportController::class,'index'])->name('reports');
 
     //Booking Routes
-    Route::get('/bookings',[BookingController::class,'index']);
-    Route::get('/bookings/search',[BookingController::class,'searchBook']);
+    Route::get('/bookings',[BookingController::class,'index'])->name('bookings');
+    Route::get('/bookings/search',[BookingController::class,'searchBook'])->name('bookings');
     Route::get('/bookings/{id}',[BookingController::class,'show']);
     Route::post('/bookings/accept',[BookingController::class,'acceptBook']);
     Route::post('/bookings/reschedule',[BookingController::class,'acceptReschedule']);
@@ -111,7 +117,7 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
             'notAvailDates' => $notAvailDates,
             'notAvailDateMssg' => $notAvailDateRes
         ]);
-    });
+    })->name('calendar');
     Route::post('/calendar/markdate',function(Request $request){
        if(DB::table('not_available_date')->where('date',$request->date)->exists()){
             DB::table('not_available_date')->where('date',$request->date)->delete();
@@ -129,11 +135,32 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
             'bookings' => $bookings
         ]);
     });
+
+    // Portfolio
+    Route::get('/portfolio/aboutme',[AboutMeController::class,'index'])->name('portfolio');
+    Route::post('/portfolio/aboutme',[AboutMeController::class,'updateAboutMe'])->name('portfolio');
+    Route::get('/portfolio/featuredwork',[FeaturedWorkController::class,'index'])->name('portfolio');
+    Route::post('/portfolio/featuredwork/photo',[FeaturedWorkController::class,'uploadimage'])->name('portfolio');
 });
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/services');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/email/verify', function () {
+    return view('pages.client.verifyemail');
+})->middleware('auth')->name('verification.notice');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // CLIENT ROUTES
-Route::middleware(['auth','roletype:CUSTOMER'])->group(function(){
+Route::middleware(['auth','verified','roletype:CUSTOMER'])->group(function(){
+
     // Services Routes
     Route::get('/services',[ServiceController::class,'index']);
 

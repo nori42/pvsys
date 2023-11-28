@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class LandingController extends Controller
 {
@@ -26,9 +27,18 @@ class LandingController extends Controller
         }
     
         $services = collect($serviceArr);
+
+        // About me
+        $jsonFilePath = public_path('aboutme.json'); // Replace with your JSON file path
+
+        $jsonContent = File::get($jsonFilePath);
+
+        $data = json_decode($jsonContent,true);
     
         return view('pages.client.landing',[
-            'services' => Utilities::getServices()
+            'services' => Utilities::getServices(),
+            'aboutme' => $data['description'],
+            'featuredPhoto' => Utilities::getFeaturedWorkPhoto()
         ]);
         
     }
