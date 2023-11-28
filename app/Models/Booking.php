@@ -52,7 +52,7 @@ class Booking extends Model
         return $this->save();
     }
 
-    public function reschedule($date,$time_start,$time_end,$message = null){
+    public function reschedule($date,$time_start,$time_end,$reschedule_reason = null,$message = null){
         $this->status = 'rescheduled';
 
         if($message){
@@ -71,6 +71,7 @@ class Booking extends Model
             'rescheduled_session_date' => $date,
             'rescheduled_start_time' => $time_start,
             'rescheduled_end_time' => $time_end,
+            'rescheduled_reason' => $reschedule_reason
         ]);
 
         return $this->save();

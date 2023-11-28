@@ -12,10 +12,14 @@ use App\Http\Controllers\Service;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Models\Booking;
+use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Ramsey\Collection\Map\AssociativeArrayMap;
 
@@ -139,8 +143,10 @@ Route::middleware(['auth','roletype:ADMINISTRATOR'])->group(function(){
     // Portfolio
     Route::get('/portfolio/aboutme',[AboutMeController::class,'index'])->name('portfolio');
     Route::post('/portfolio/aboutme',[AboutMeController::class,'updateAboutMe'])->name('portfolio');
-    Route::get('/portfolio/featuredwork',[FeaturedWorkController::class,'index'])->name('portfolio');
+    Route::get('/portfolio/featuredwork/photo',[FeaturedWorkController::class,'photo'])->name('portfolio');
     Route::post('/portfolio/featuredwork/photo',[FeaturedWorkController::class,'uploadimage'])->name('portfolio');
+    Route::get('/portfolio/featuredwork/video',[FeaturedWorkController::class,'video'])->name('portfolio');
+    Route::post('/portfolio/featuredwork/video',[FeaturedWorkController::class,'uploadvideo'])->name('portfolio');
 });
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -191,3 +197,53 @@ Route::middleware(['auth','verified','roletype:CUSTOMER'])->group(function(){
     Route::post('/book',[BookController::class,'store']);
 
 });
+
+
+// Password Reset Link
+Route::get('/forgot-password', function () {
+    return view('pages.forgot-password');
+})->middleware('guest')->name('password.request');
+
+//Password form submiission
+Route::post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+ 
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+ 
+    return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
+
+// Password Reset Form
+Route::get('/reset-password/{token}', function (string $token) {
+    return view('pages.reset-password', ['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
+// Reset Password Form
+Route::post('/reset-password', function (Request $request) {
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+ 
+    $status = Password::reset(
+        $request->only('email', 'password', 'password_confirmation', 'token'),
+        function (User $user, string $password) {
+            $user->forceFill([
+                'password' => Hash::make($password)
+            ]);
+ 
+            $user->save();
+ 
+            event(new PasswordReset($user));
+        }
+    );
+ 
+    return $status === Password::PASSWORD_RESET
+                ? redirect()->route('login')->with('status', __($status))
+                : back()->withErrors(['email' => [__($status)]]);
+})->middleware('guest')->name('password.update');

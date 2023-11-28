@@ -18,6 +18,11 @@ class UserController extends Controller
     public function store(Request $request){
         $inputs = $request->collect();
 
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
         if(User::where('email',$request->email)->count() == 1){
             return back()->with('emailExist',true);
         }

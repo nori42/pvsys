@@ -38,7 +38,8 @@ class LandingController extends Controller
         return view('pages.client.landing',[
             'services' => Utilities::getServices(),
             'aboutme' => $data['description'],
-            'featuredPhoto' => Utilities::getFeaturedWorkPhoto()
+            'featuredPhoto' => Utilities::getFeaturedWorkPhoto(),
+            'featuredVideo' => Utilities::getFeaturedWorkVideo()
         ]);
         
     }

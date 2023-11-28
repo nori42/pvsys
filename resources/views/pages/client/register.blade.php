@@ -35,7 +35,11 @@
 
             <button class="btn btn-primary-nb rounded-0 my-3 align-self-center fw-bold mt-5" style="padding: 0.625rem 6rem;"
                 id="btnRegister">Register</button>
-
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="text-danger">{{ $error }}</div>
+                @endforeach
+            @endif
             <div class="text-danger d-none" id="confPassError">Confirm password must match with password</div>
             <div class="text-center text-white">
                 Already have an account?

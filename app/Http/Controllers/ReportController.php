@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
+
+        $month = $request->month == null ? now()->month : $request->month; 
+
         $receiveThisMonth = DB::table('payments')
-        ->whereMonth('date_of_payment',now()->month)
+        ->whereMonth('date_of_payment',$month)
         ->whereYear('date_of_payment', now()->year)
         ->sum('amount');
 
@@ -21,41 +24,43 @@ class ReportController extends Controller
 
         $topServices = Booking::select('session_type', DB::raw('COUNT(session_type) as count'))
                     ->whereNot('status','pending')
+                    ->whereMonth('session_date',$month)
+                    ->whereYear('session_date',now()->year)
                     ->groupBy('session_type')
                     ->orderByDesc('count')
                     ->limit(5)
                     ->get();
         $sessionCounts = [
                 'corporate_events' => [
-                    Utilities::getBookingSessionCount('Conferences'),
-                    Utilities::getBookingSessionCount('Corporate Parties'),
-                    Utilities::getBookingSessionCount('Product Launches'),
-                    Utilities::getBookingSessionCount('Seminars'),
-                    Utilities::getBookingSessionCount('Team-Building Activites')
+                    Utilities::getBookingSessionCount('Conferences',$month),
+                    Utilities::getBookingSessionCount('Corporate Parties',$month),
+                    Utilities::getBookingSessionCount('Product Launches',$month),
+                    Utilities::getBookingSessionCount('Seminars',$month),
+                    Utilities::getBookingSessionCount('Team-Building Activites',$month)
                 ],
                 'commercial_shoots' => [
-                    Utilities::getBookingSessionCount('Advertising Campaigns'),
-                    Utilities::getBookingSessionCount('Funshoots'),
+                    Utilities::getBookingSessionCount('Advertising Campaigns',$month),
+                    Utilities::getBookingSessionCount('Funshoots',$month),
                 ],
                 'portraits' => [
-                    Utilities::getBookingSessionCount('Family Portraits'),
-                    Utilities::getBookingSessionCount('Senior Portraits'),
-                    Utilities::getBookingSessionCount('Professional Headshots'),
-                    Utilities::getBookingSessionCount('Lifestyle Photography'),
+                    Utilities::getBookingSessionCount('Family Portraits',$month),
+                    Utilities::getBookingSessionCount('Senior Portraits',$month),
+                    Utilities::getBookingSessionCount('Professional Headshots',$month),
+                    Utilities::getBookingSessionCount('Lifestyle Photography',$month),
                 ],
                 'social_events' => [
-                    Utilities::getBookingSessionCount('Anniversaries'),
-                    Utilities::getBookingSessionCount('Baby Showers'),
-                    Utilities::getBookingSessionCount('Birthdays'),
-                    Utilities::getBookingSessionCount('Christineng'),
-                    Utilities::getBookingSessionCount('Graduations'),
+                    Utilities::getBookingSessionCount('Anniversaries',$month),
+                    Utilities::getBookingSessionCount('Baby Showers',$month),
+                    Utilities::getBookingSessionCount('Birthdays',$month),
+                    Utilities::getBookingSessionCount('Christineng',$month),
+                    Utilities::getBookingSessionCount('Graduations',$month),
                 ],
                 'weddings' => [
-                    Utilities::getBookingSessionCount('Bridal Showers'),
-                    Utilities::getBookingSessionCount('Ceremonies'),
-                    Utilities::getBookingSessionCount('Engagement Parties'),
-                    Utilities::getBookingSessionCount('Reception'),
-                    Utilities::getBookingSessionCount('Ultimate Wedding'),
+                    Utilities::getBookingSessionCount('Bridal Showers',$month),
+                    Utilities::getBookingSessionCount('Ceremonies',$month),
+                    Utilities::getBookingSessionCount('Engagement Parties',$month),
+                    Utilities::getBookingSessionCount('Reception',$month),
+                    Utilities::getBookingSessionCount('Ultimate Wedding',$month),
                 ]
             ];
 

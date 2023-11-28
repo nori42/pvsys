@@ -34,7 +34,7 @@
                     <label class="text-white" for="password">Password</label><br>
                     <input class="form-input w-100" type="password" name="password" id="password">
                 </div>
-                <a class="text-white text-decoration-none mt-1" href="#">Forgot Password?</a>
+                <a class="text-white text-decoration-none mt-1" href="/forgot-password">Forgot Password?</a>
 
 
                 <button class="btn btn-primary-nb mt-4 rounded-0 px-5">LOGIN</button>

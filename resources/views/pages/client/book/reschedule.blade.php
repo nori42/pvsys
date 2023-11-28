@@ -55,6 +55,9 @@
                             <input class="form-control " type="time" name="endTime" id="endTime" value="12:00">
                         </div>
                     </div>
+
+                    <textarea class="p-2" name="rescheduleReason" id="rescheduleReason" cols="30" rows="8"
+                        style="resize: none;" placeholder="Reason for reschedule" required></textarea>
                     <button class="btn btn-dark mt-3" data-bs-dismiss="modal" name="action"
                         value="reschedule">Reschedule</button>
                 </form>

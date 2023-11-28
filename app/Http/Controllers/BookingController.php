@@ -44,6 +44,9 @@ class BookingController extends Controller
             case 'completed':
                 $bookings = Booking::where('status','completed')->get();
                 break;
+            case 'cancelled':
+                $bookings = Booking::where('status','cancelled')->get();
+                break;
             default:
                 $bookings = Booking::where('status','pending')->get();
                 

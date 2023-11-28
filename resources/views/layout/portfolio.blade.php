@@ -35,7 +35,7 @@
                 <a class="btn text-white fw-semibold @if ($currentPortfolio == 'aboutme') active @endif"
                     href="/portfolio/aboutme">About Me</a>
                 <a class="btn text-white fw-semibold @if ($currentPortfolio == 'featuredwork') active @endif"
-                    href="/portfolio/featuredwork">Featured Work</a>
+                    href="/portfolio/featuredwork/photo">Featured Work</a>
             </div>
             @yield('pagecontent')
         </div>

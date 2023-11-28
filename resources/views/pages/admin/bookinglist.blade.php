@@ -57,6 +57,7 @@
                     <option value="accepted" @if (request('status') == 'accepted') selected @endif>Accepted</option>
                     <option value="rescheduled" @if (request('status') == 'rescheduled') selected @endif>Rescheduled</option>
                     <option value="completed" @if (request('status') == 'completed') selected @endif>Completed</option>
+                    <option value="cancelled" @if (request('status') == 'cancelled') selected @endif>Cancelled</option>
                 </select>
             </div>
         </div>
@@ -116,6 +117,7 @@
                                         <x-booking.data label="Rescheduled End Time"
                                             data="{{ $book->rescheduled_end_time }}" />
                                     </div>
+                                    <x-booking.data label="Rescheduled Reason" data="{{ $book->rescheduled_reason }}" />
                                 @else
                                     <x-booking.data label="Start Time" data="{{ $book->start_time }}" />
                                     <x-booking.data label="End Time" data="{{ $book->end_time }}" />
@@ -152,7 +154,7 @@
                             </td>
                             <td class="align-middle col-3">
                                 @if (request('status') == 'pending' || request('status') == 'rescheduled')
-                                    <div>
+                                    <div class="d-flex flex-column gap-2 align-items-center">
                                         <button class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="{{ request('status') == 'pending' ? '#acceptModal' : '#rescheduledModal' }}"
                                             data-btn-accept data-bookingId={{ $book->id }} accept-modal>Accept</button>
@@ -163,7 +165,7 @@
                                     </div>
                                 @endif
                                 @if (request('status') == 'accepted')
-                                    <div>
+                                    <div class="d-flex flex-column gap-2 align-items-center">
 
                                         @if ($book->session_date <= date('Y-m-d') && $book->payment_balance <= 0)
                                             <button class="btn btn-success" data-bs-toggle="modal" data-btn-complete

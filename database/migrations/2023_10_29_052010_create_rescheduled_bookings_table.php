@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('rescheduled_session_date');
             $table->date('rescheduled_start_time');
             $table->date('rescheduled_end_time');
-            $table->text('rescheduled_reason');
+            $table->text('rescheduled_reason')->nullable();
         });
     }
 

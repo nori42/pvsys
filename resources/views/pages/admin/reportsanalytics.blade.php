@@ -4,21 +4,23 @@
 @endsection
 
 @section('pagecontent')
-    {{-- @dd($sessionCounts['commercial_shoots'][0]['count']) --}}
     <div style="padding: 2rem 10%;">
         <div class="d-flex justify-content-between">
             <div class="fs-3 text-white">Quick Stats</div>
-            <select name="" id="" class="form-select w-25" disabled
+            <select name="monthFilter" id="monthFilter" class="form-select w-25"
                 style="bacakground-color: var(--dark-color); margin-right: 3rem;">
                 @for ($i = 1; $i <= date('m'); $i++)
                     @php
                         $month = date('F', strtotime("2023-{$i}-01"));
                         $monthNum = date('m', strtotime("2023-{$i}-01"));
+                        $selectedMonthNum = request()->query('month');
+                        $selectedMonth = date('F', strtotime("2023-{$selectedMonthNum}-01"));
                     @endphp
-                    <option value="{{ $monthNum }}" @if ($month == date('F')) selected @endif>{{ $month }}
+                    <option value="{{ $monthNum }}" @if ($month == $selectedMonth) selected @endif>{{ $month }}
                     </option>
                 @endfor
             </select>
+
         </div>
         <div class="px-5 mt-3">
             {{-- Popular Services --}}
@@ -112,5 +114,5 @@
 @endsection
 
 @section('pagescript')
-    {{-- <script src="{{ asset('js/pages/bookings.js') }}"></script> --}}
+    <script src="{{ asset('js/pages/reports.js') }}"></script>
 @endsection

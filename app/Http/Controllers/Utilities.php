@@ -74,8 +74,28 @@ class Utilities {
         return $images;
     }
 
-    public static function getBookingSessionCount($sessionType) {
-        $bookingCount = Booking::where('session_type',$sessionType)->whereNot('status','pending')->count();
+    
+    public static function getFeaturedWorkVideo(){
+        $folderPath = public_path('images/landing/featured_work/video');
+
+        $items = File::allFiles($folderPath);
+
+        $videos = [];
+
+        foreach($items as $item){
+            $filePath = 'images/landing/featured_work/video/'.$item->getRelativePathname();
+            array_push($videos,$filePath);
+        }
+
+        return $videos;
+    }
+
+    public static function getBookingSessionCount($sessionType,$month) {
+        $bookingCount = Booking::where('session_type',$sessionType)
+        ->whereNot('status','pending')
+        ->whereMonth('session_date',$month)
+        ->whereYear('session_date',now()->year)
+        ->count();
         return [
             'session' => $sessionType,
             'count' => $bookingCount

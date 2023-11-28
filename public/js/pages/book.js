@@ -55,7 +55,7 @@ function generateCalendar(year, month) {
         dateElement.setAttribute("dateValue", dateValue);
 
         if (
-            day <= new Date().getDate() &&
+            day <= new Date().getDate() + 1 &&
             month == new Date().getMonth() &&
             year == new Date().getFullYear()
         ) {

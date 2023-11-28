@@ -41,6 +41,8 @@
                     {{ session('incorrectRoleLogin') }}
                 @endif
             </div>
+            <a class="text-white text-decoration-none mt-1 float-right" href="/forgot-password">Forgot Password?</a>
+
 
             <button class="btn btn-primary-nb rounded-0 my-3 px-5">Login</button>
             <div class="text-white fw-light">

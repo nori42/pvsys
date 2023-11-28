@@ -66,13 +66,27 @@
         </div>
     </section>
 
-    <section class="featurework">
-        <h1 class="text-primary-nb w-75 mx-auto"><span class="text-white">My</span> Featured Work</h1>
-
-        <div class="w-75 mx-auto mt-5">
+    <section class="featurework w-75 mx-auto">
+        <h1 class="text-primary-nb"><span class="text-white">My</span> Featured Work</h1>
+        <div>
+            <button class="btn text-primary-nb" btn-featured="photo">Photo</button>
+            <button class="btn text-white" btn-featured="video">Video</button>
+        </div>
+        <div class="mt-5" id="photo">
             <div class="d-flex flex-wrap gap-3">
                 @foreach ($featuredPhoto as $photoPath)
                     <img class="" src="{{ asset($photoPath) }}" alt="featured_photo" height="230" width="230">
+                @endforeach
+            </div>
+        </div>
+
+        <div class="mt-5 d-none" id="video">
+            <div class="d-flex flex-wrap gap-3">
+                @foreach ($featuredVideo as $videoPath)
+                    <video height="380" width="440" controls>
+                        <source src="{{ asset($videoPath) }}">
+                        Video Format Not Supported
+                    </video>
                 @endforeach
             </div>
         </div>
@@ -85,6 +99,11 @@
 
 @section('scripts')
     <script>
+        const photo = document.querySelector('#photo');
+        const video = document.querySelector('#video');
+        const btnPhoto = document.querySelector('[btn-featured=photo]');
+        const btnVideo = document.querySelector('[btn-featured=video]');
+
         function showServices(category, elem) {
             const categories = document.querySelectorAll("[serviceCategory]");
             const btnServices = document.querySelectorAll(".btn-service");
@@ -99,5 +118,27 @@
 
             elem.classList.add("active");
         }
+        document.querySelectorAll('[btn-featured]').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                if (e.target.getAttribute('btn-featured') == 'video') {
+                    video.classList.remove('d-none');
+                    photo.classList.add('d-none');
+
+                    btnVideo.classList.add('text-primary-nb');
+                    btnVideo.classList.remove('text-white');
+
+                    btnPhoto.classList.remove('text-primary-nb');
+                    btnPhoto.classList.add('text-white');
+                } else {
+                    video.classList.add('d-none');
+                    photo.classList.remove('d-none');
+
+                    btnVideo.classList.remove('text-primary-nb');
+                    btnVideo.classList.add('text-white');
+                    btnPhoto.classList.add('text-primary-nb');
+                    btnPhoto.classList.remove('text-white');
+                }
+            })
+        })
     </script>
 @endsection

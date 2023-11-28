@@ -164,7 +164,7 @@ class BookController extends Controller
 
     public function rescheduleBook(Request $request){
         $booking = Booking::where('id',$request->id)->first();
-        $booking->reschedule($request->datePicked,$request->startTime,$request->endTime);
+        $booking->reschedule($request->datePicked,$request->startTime,$request->endTime,$request->rescheduleReason);
         
         return redirect('book/message?messageType=rescheduled');
     }

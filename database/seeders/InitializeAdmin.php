@@ -19,7 +19,7 @@ class InitializeAdmin extends Seeder
         DB::table('users')->insert([
             'email' => 'ianmars@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('pussylicker'),
+            'password' => Hash::make('ianmars1234'),
             'first_name' => 'Ian Mars',
             'last_name' => 'Montebon',
             'role' => 'ADMINISTRATOR',
