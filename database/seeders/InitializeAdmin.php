@@ -17,11 +17,11 @@ class InitializeAdmin extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'email' => 'ianmars@gmail.com',
+            'email' => 'norlitz@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('ianmars1234'),
-            'first_name' => 'Ian Mars',
-            'last_name' => 'Montebon',
+            'password' => Hash::make('norlitz1234'),
+            'first_name' => 'Norlitz',
+            'last_name' => 'Bato',
             'role' => 'ADMINISTRATOR',
             'phone_no' => '09294708232',
             'created_at' => now(),

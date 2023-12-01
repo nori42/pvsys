@@ -20,7 +20,7 @@ class UserController extends Controller
 
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
         ]);
 
         if(User::where('email',$request->email)->count() == 1){
