@@ -86,14 +86,14 @@
                                 @if (session('pastbooking'))
                                 @else
                                     <div class="d-flex justify-content-end gap-3 mt-4">
-                                        @if ($book->status == 'accepted')
+                                        @if ($book->status == 'accepted' && date('Y-m-d', strtotime($book->session_date . '-2 days')) > date('Y-m-d'))
                                             <a class="btn btn-outline-primary-nb"
                                                 href="/book/{{ $book->id }}/reschedule">Reschedule</a>
                                         @elseif ($book->status == 'rescheduled')
-                                            <button class="btn btn-outline-danger text-nowrap" type="button"
+                                            {{-- <button class="btn btn-outline-danger text-nowrap" type="button"
                                                 data-bookId ="{{ $book->id }}" data-bs-toggle="modal"
                                                 data-bs-target="#cancelReschModal" onclick="passIdToModal(this)">Cancel
-                                                Rescuedule</button>
+                                                Rescuedule</button> --}}
                                         @endif
 
                                         @if ($book->status == 'accepted' || $book->status == 'pending')

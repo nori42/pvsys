@@ -30,9 +30,17 @@
                     <input class="form-input w-100" type="email" name="email" id="email">
                 </div>
                 <div class="my-2"></div>
-                <div class="align-self-stretch">
+
+                {{-- <div class="align-self-stretch">
                     <label class="text-white" for="password">Password</label><br>
                     <input class="form-input w-100" type="password" name="password" id="password">
+                </div> --}}
+
+                <div class="d-flex position-relative align-self-stretch">
+                    <input class="form-input w-100" type="password" id="password" name="password" placeholder="Password"
+                        required>
+                    <button class="btn btn-show-password" type="button" onclick="showPassword(this)"><i
+                            class="bi bi-eye-fill" style="font-size:1rem;"></i></button>
                 </div>
                 <a class="text-white text-decoration-none mt-1" href="/forgot-password">Forgot Password?</a>
 

@@ -27,3 +27,21 @@ main {
     width: 100%;
     background-color: #505457;
 }
+
+.btn-show-password {
+    background-color: transparent;
+    color: #989898;
+    border-radius: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.btn-show-password:hover {
+    background-color:transparent;
+}
+
+.btn-show-password:active {
+    background-color: transparent!important;
+    border-color: transparent !important;
+}

@@ -2,7 +2,7 @@
 
 @section('pagecontent')
     <main>
-        <div class="text-white w-50 mx-auto mt-5">
+        <div class="w-50 mx-auto mt-5" style="color:#d0d0d0;">
             <div class="d-flex align-items-center">
                 <a href="{{ url()->previous() }}"><i class="bi bi-arrow-left-circle-fill text-white fs-1"></i></a>
                 <h1 class="mx-5"><span class="text-center">Cancellation Policy</span></h1>

@@ -96,26 +96,26 @@
                     <h1 class="fs-3">Booking and Payment Proccess:</h1>
                     <div>To book your photoshoot session, follow these simple steps:</div>
 
-                    <ul class="m-0">
-                        <li class="text-secondary"><span class="fw-bold text-white">Booking Process:</span> Submit your
+                    <ul class="m-0 process">
+                        <li><span class="fw-bold text-white">Booking Process:</span> Submit your
                             request
                             through our online form to express
                             your interest in our
                             photography services. </li>
-                        <li class="text-secondary"><span class="fw-bold text-white">Availability Confirmation:</span> Our
+                        <li><span class="fw-bold text-white">Availability Confirmation:</span> Our
                             photographer will call you to confirm their availability on the requested date. If they are
                             available, we will proceed to discuss the pricing details.</li>
-                        <li class="text-secondary"><span class="fw-bold text-white">Customized Quote:</span> During the
+                        <li><span class="fw-bold text-white">Customized Quote:</span> During the
                             call,
                             you will receive a personalized quote based on your specific requirements. This ensures that you
                             get
                             a fair and accurate price tailored to the services you need.</li>
-                        <li class="text-secondary"><span class="fw-bold text-white">Transparent Pricing:</span> We believe
+                        <li><span class="fw-bold text-white">Transparent Pricing:</span> We believe
                             in
                             transparency. The quoted price will include all applicable fees, ensuring that there are no
                             hidden
                             costs.</li>
-                        <li class="text-secondary"><span class="fw-bold text-white">Payment Options:</span> To secure your
+                        <li><span class="fw-bold text-white">Payment Options:</span> To secure your
                             booking, our photographer requires a downpayment/full payment (whichever is applicable based on
                             your
                             <br>
@@ -131,7 +131,7 @@
                             </ul>
                             You have two payment options:
                         </li>
-                        <li class="text-secondary"><span class="fw-bold text-white">Confirmation:</span> Once you agree to
+                        <li><span class="fw-bold text-white">Confirmation:</span> Once you agree to
                             the
                             quoted price, your booking will be confirmed, and we will proceed with the necessary
                             arrangements

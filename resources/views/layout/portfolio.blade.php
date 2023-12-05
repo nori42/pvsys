@@ -16,7 +16,7 @@
 @endsection
 @section('maincontent')
     <nav class="d-flex align-items-center justify-content-center">
-        <div class="d-flex gap-3 align-items-center">
+        <div class="d-flex justify-content-between align-items-center w-100">
             <a class="btn text-white py-2 @if ($currentRoute == 'bookings') active @endif"
                 href="/bookings?status=pending">Booking Management</a>
             <a class="btn text-white py-2 @if ($currentRoute == 'calendar') active @endif" href="/calendar">Calendar</a>

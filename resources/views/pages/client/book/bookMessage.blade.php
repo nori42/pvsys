@@ -32,7 +32,7 @@
                         Your booking has been cancelled.
                     </p>
                 @endif
-                <a class="float-end" href="/mybook/{{ auth()->user()->id }}">View My Bookings</a>
+                <a class="float-end text-primary-nb" href="/mybook/{{ auth()->user()->id }}">View My Bookings</a>
             </div>
         </div>
     </main>

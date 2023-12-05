@@ -25,7 +25,7 @@ nav .btn:hover:not(.active) {
 }
 
 .logout {
-    right: 8rem;
+    right: 1.5rem;
     padding: 0.2rem 1.25rem;
     min-width: auto;
 }

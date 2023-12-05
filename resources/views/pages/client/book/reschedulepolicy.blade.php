@@ -2,7 +2,7 @@
 
 @section('pagecontent')
     <main>
-        <div class="text-white w-50 mx-auto mt-5">
+        <div class="w-50 mx-auto mt-5" style="color:#d0d0d0;">
             <div class="d-flex align-items-center">
                 <a href="{{ url()->previous() }}"><i class="bi bi-arrow-left-circle-fill text-white fs-1"></i></a>
                 <h1 class="mx-5">Reschedule Policy</h1>
@@ -11,7 +11,7 @@
                 <li>Reschedule requests will only be considered if submitted within a maximum of 96 hours (4 days) before
                     your initial photoshoot date. If it is over within 96 hours (4 days) of your initial photoshoot date, it
                     is not possible to send a reschedule request.</li>
-                <li>Rescheduling within 48 hours before the scheduled shoot: Clients can request a one-time rescheduling of
+                <li>Rescheduling within 48 hours before the scheduled shoot: Clients can request reschedule of
                     their booking at least 48 hours before the scheduled photo shoot at no additional cost, subject to
                     photographer availability. We will make our best effort to accommodate the new date and time
                     preferences.</li>

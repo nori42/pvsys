@@ -10,7 +10,7 @@
             <div>
                 <img src="{{ asset('images/logo.png') }}" height="128" width="128" alt="">
             </div>
-            <a class="btn text-white align-self-center" href="/login">SIGN IN</a>
+            <a class="btn btn-outline-primary-nb rounded-3 text-white align-self-center" href="/login">LOGIN</a>
         </div>
 
         <div class="d-flex flex-column align-items-center h-100" style="margin-top: 7rem">

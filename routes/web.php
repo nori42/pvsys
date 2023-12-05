@@ -204,7 +204,7 @@ Route::get('/forgot-password', function () {
     return view('pages.forgot-password');
 })->middleware('guest')->name('password.request');
 
-//Password form submiission
+//Password form submission
 Route::post('/forgot-password', function (Request $request) {
     $request->validate(['email' => 'required|email']);
  

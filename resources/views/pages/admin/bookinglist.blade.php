@@ -68,7 +68,7 @@
                     <th class="text-center">ID</th>
                     <th>Booking Data</th>
                     @if (request('status') == 'pending' || request('status') == 'rescheduled' || request('status') == 'accepted')
-                        <th>Action</th>
+                        <th class="text-center">Action</th>
                     @endif
                     <th></th>
                 </thead>
