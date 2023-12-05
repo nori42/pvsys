@@ -13,7 +13,8 @@
                 href="/bookings?status=pending">Booking Management</a>
             <a class="btn text-white py-2 @if ($currentRoute == 'calendar') active @endif" href="/calendar">Calendar</a>
             <img src="{{ asset('images/logo.png') }}" width="90" height="64" alt="logo">
-            <a class="btn text-white py-2 @if ($currentRoute == 'reports') active @endif" href="/reports">Reports and
+            <a class="btn text-white py-2 @if ($currentRoute == 'reports') active @endif"
+                href="/reports?month={{ date('m') }}">Reports and
                 Analytics</a>
             <a class="btn text-white py-2 @if ($currentRoute == 'portfolio') active @endif" href="/portfolio/aboutme">My
                 Portfolio</a>
